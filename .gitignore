@@ -1,1 +1,2 @@
-info.txt
+node_modules/
+.env*
