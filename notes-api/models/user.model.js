@@ -12,5 +12,5 @@ const userSchema = new Schema({
         default: () => Math.floor(Math.random() * 1000000)
     }
 })
-export const User = mongoose.model(userSchema);
+export const User = mongoose.model('User', userSchema);
 
