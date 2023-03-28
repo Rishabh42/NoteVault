@@ -3,7 +3,7 @@ import Web3 from 'web3';
 
 let web3 = undefined; // Will hold the web3 instance
 
-export const Login = () => {
+const Login = () => {
     const [loading, setLoading] = useState(false); // Loading button state
 
     const handleAuthenticate = ({
@@ -112,3 +112,5 @@ export const Login = () => {
         </div>
     );
 };
+
+export default Login;
