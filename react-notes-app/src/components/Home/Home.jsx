@@ -6,6 +6,7 @@ import Button from "@mui/material/Button";
 import ButtonBase from '@mui/material/ButtonBase';
 import Grid from "@mui/material/Unstable_Grid2";
 import Typography from "@mui/material/Typography";
+import CreateNote from '../CreateNote/CreateNote';
 
 const NoteListItem = ({ title, lastModified }) => (
     <Box sx={{ background: "#ddd" }} >
@@ -15,39 +16,52 @@ const NoteListItem = ({ title, lastModified }) => (
 )
 
 const Home = () => {
-    const [notes, setNotes] = React.useState([{ title: "Add title...", body: "", lastModified: Date.now() }]);
+    const [notes, setNotes] = React.useState([]);
     const [index, setIndex] = React.useState(0);
+    const [mode, setMode] = React.useState(notes.length ? 1 : 0) // 1 - Display note, 0 - Create note
 
-    const addNote = () => {
-        setNotes([...notes, { title: "Add title...", body: "", lastModified: Date.now() }])
-        setIndex(notes.length)
+    const addNote = (title, body) => {
+        setNotes(prevNotes => [...prevNotes, { title: title, body: body, lastModified: Date.now() }])
+        setIndex(notes.length);
+        setMode(1);
     }
 
-    const updateTitle = (title) => {
-        let updatedNote = notes[index];
-        updatedNote.title = title;
-        setNotes([...notes.slice(0, index), updatedNote, ...notes.slice(index + 1)])
+    const discardNote = () => setMode(1);
+
+    const updateNote = (title, body) => {
+        const note = notes[index];
+        note.title = title;
+        note.body = body;
+        note.lastModified = Date.now();
+        setNotes([...notes.slice(0, index), note, ...notes.slice(index + 1)])
     }
 
-    const updateBody = (body) => {
-        let updatedNote = notes[index];
-        updatedNote.body = body;
-        setNotes([...notes.slice(0, index), updatedNote, ...notes.slice(index + 1)])
-    }
+
+    // const updateTitle = (title) => {
+    //     let updatedNote = notes[index];
+    //     updatedNote.title = title;
+    //     setNotes([...notes.slice(0, index), updatedNote, ...notes.slice(index + 1)])
+    // }
+
+    // const updateBody = (body) => {
+    //     let updatedNote = notes[index];
+    //     updatedNote.body = body;
+    //     setNotes([...notes.slice(0, index), updatedNote, ...notes.slice(index + 1)])
+    // }
 
     return (
         <Box sx={{ flexGrow: 1, m: 2 }}>
             <Grid container columnGap={2}>
                 <Grid xs={4} justifyContent="center" >
-                    <Button variant="contained" onClick={addNote}>Add Note</Button>
-                    {notes.map((note, i) => (
+                    <Button variant="contained" onClick={() => setMode(0)} disabled={mode === 0}>Add Note</Button>
+                    {notes.length === 0 ? <Typography>No Notes</Typography> : notes.map((note, i) => (
                         <ButtonBase sx={{ display: "block", width: "100%", textAlign: "left" }} onClick={() => setIndex(i)}>
                             <NoteListItem key={i} title={note.title || "Title"} lastModified={note.lastModified} />
                         </ButtonBase>
                     ))}
                 </Grid>
                 <Grid xs={7}>
-                    <Note title={notes[index].title} body={notes[index].body} updateTitle={updateTitle} updateBody={updateBody} />
+                    {mode ? <Note initTitle={notes[index].title} initBody={notes[index].body} updateNote={updateNote} /> : <CreateNote addNote={addNote} discardNote={discardNote} />}
                 </Grid>
             </Grid>
         </Box>
