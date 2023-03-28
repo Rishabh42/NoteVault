@@ -1,14 +1,16 @@
+
 import * as React from 'react';
 import Note from "../Note/Note";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Grid from "@mui/material/Grid";
+import ButtonBase from '@mui/material/ButtonBase';
+import Grid from "@mui/material/Unstable_Grid2";
 import Typography from "@mui/material/Typography";
 
 const NoteListItem = ({ title, lastModified }) => (
-    <Box sx={{ background: "#ddd" }}>
+    <Box sx={{ background: "#ddd" }} >
         <Typography variant='h6'>{title}</Typography>
-        <Typography>{new Date(lastModified).toLocaleDateString()}</Typography>
+        <Typography>{new Date(lastModified).toLocaleString()}</Typography>
     </Box>
 )
 
@@ -18,12 +20,18 @@ const Home = () => {
 
     const addNote = () => {
         setNotes([...notes, { title: "Add title...", body: "", lastModified: Date.now() }])
-        setIndex(notes.length + 1)
+        setIndex(notes.length)
     }
 
     const updateTitle = (title) => {
         let updatedNote = notes[index];
         updatedNote.title = title;
+        setNotes([...notes.slice(0, index), updatedNote, ...notes.slice(index + 1)])
+    }
+
+    const updateBody = (body) => {
+        let updatedNote = notes[index];
+        updatedNote.body = body;
         setNotes([...notes.slice(0, index), updatedNote, ...notes.slice(index + 1)])
     }
 
@@ -33,11 +41,13 @@ const Home = () => {
                 <Grid xs={4} justifyContent="center" >
                     <Button variant="contained" onClick={addNote}>Add Note</Button>
                     {notes.map((note, i) => (
-                        <NoteListItem key={i} title={note.title} lastModified={note.lastModified} />
+                        <ButtonBase sx={{ display: "block", width: "100%", textAlign: "left" }} onClick={() => setIndex(i)}>
+                            <NoteListItem key={i} title={note.title || "Title"} lastModified={note.lastModified} />
+                        </ButtonBase>
                     ))}
                 </Grid>
                 <Grid xs={7}>
-                    <Note index={index} title={notes[index].title} body={notes[index].body} setNotes={setNotes} />
+                    <Note title={notes[index].title} body={notes[index].body} updateTitle={updateTitle} updateBody={updateBody} />
                 </Grid>
             </Grid>
         </Box>
