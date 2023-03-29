@@ -6,3 +6,16 @@ Source code, workflow and contributions are added in the respective folders.
 
 Instructions to run are mentioned below.
 
+Steps to run project first time
+1. `cd notes-api`
+2. `npm install`
+3. `npm run start`
+4. `cd ../react-notes-app`
+5. `npm install`
+6. `npm start`
+
+Subsequently,
+1. `cd notes-api`
+2. `npm run start`
+3. `cd ../react-notes-app`
+4. `npm start`
