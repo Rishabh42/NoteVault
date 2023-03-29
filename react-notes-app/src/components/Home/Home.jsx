@@ -36,18 +36,9 @@ const Home = () => {
         setNotes([...notes.slice(0, index), note, ...notes.slice(index + 1)])
     }
 
-
-    // const updateTitle = (title) => {
-    //     let updatedNote = notes[index];
-    //     updatedNote.title = title;
-    //     setNotes([...notes.slice(0, index), updatedNote, ...notes.slice(index + 1)])
-    // }
-
-    // const updateBody = (body) => {
-    //     let updatedNote = notes[index];
-    //     updatedNote.body = body;
-    //     setNotes([...notes.slice(0, index), updatedNote, ...notes.slice(index + 1)])
-    // }
+    React.useEffect(() => {
+        fetch(process.env.REACT_APP_BACKEND_URL + '/users/notes', { credentials: 'include' }).then(res => res.text()).then(res => console.log(res))
+    }, [])
 
     return (
         <Box sx={{ flexGrow: 1, m: 2 }}>

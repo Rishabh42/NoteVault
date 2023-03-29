@@ -3,10 +3,12 @@ dotenv.config()
 import express, { json } from "express";
 import cors from "cors";
 import mongoose from "mongoose";
+import cookieParser from 'cookie-parser';
 import { mainRouter } from "./routes/index.js";
 const app = express(); //Create express app
 app.use(json()); //Middleware to parse JSON
-app.use(cors())
+app.use(cors());
+app.use(cookieParser());
 
 //Connect to MongoDB database
 const uri = `mongodb://${process.env.DB_USERNAME}:${process.env.DB_PWD}@${process.env.MONGO_URI}/${process.env.DB_NAME}?authMechanism=DEFAULT&authSource=${process.env.DB_NAME}`;
@@ -20,7 +22,8 @@ const PORT = process.env.PORT || 8080;
 //Import routers 
 app.use('/api', mainRouter);
 
-app.get('/', (req, res) => {
+app.get('/api/test', (req, res) => {
+    console.log(req.cookies)
     res.send("Note taking app");
 })
 

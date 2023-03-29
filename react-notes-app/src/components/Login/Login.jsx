@@ -16,6 +16,7 @@ const Login = () => {
                 'Content-Type': 'application/json',
             },
             method: 'POST',
+            credentials: 'include'
         }).then((response) => response.json());
 
     const handleSignMessage = async ({
@@ -85,8 +86,9 @@ const Login = () => {
         )
             .then((response) => response.json())
             // If yes, retrieve it. If no, create it.
-            .then((users) =>
-                users.length ? users[0] : handleSignup(publicAddress)
+            .then((response) =>
+                response.users.length ? response.users[0] : handleSignup(publicAddress)
+
             )
             // Popup MetaMask confirmation modal to sign message
             .then(handleSignMessage)
