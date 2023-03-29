@@ -7,7 +7,7 @@ import cookieParser from 'cookie-parser';
 import { mainRouter } from "./routes/index.js";
 const app = express(); //Create express app
 app.use(json()); //Middleware to parse JSON
-app.use(cors());
+app.use(cors({ origin: true, credentials: true }));
 app.use(cookieParser());
 
 //Connect to MongoDB database

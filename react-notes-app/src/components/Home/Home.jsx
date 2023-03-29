@@ -7,6 +7,7 @@ import ButtonBase from '@mui/material/ButtonBase';
 import Grid from "@mui/material/Unstable_Grid2";
 import Typography from "@mui/material/Typography";
 import CreateNote from '../CreateNote/CreateNote';
+import axios from "../../axios";
 
 const NoteListItem = ({ title, lastModified }) => (
     <Box sx={{ background: "#ddd" }} >
@@ -16,12 +17,15 @@ const NoteListItem = ({ title, lastModified }) => (
 )
 
 const Home = () => {
-    const [notes, setNotes] = React.useState([]);
+    const [notes, setNotes] = React.useState([]); // {title: string, body: string, lastModified: Date}
     const [index, setIndex] = React.useState(0);
     const [mode, setMode] = React.useState(notes.length ? 1 : 0) // 1 - Display note, 0 - Create note
 
     const addNote = (title, body) => {
-        setNotes(prevNotes => [...prevNotes, { title: title, body: body, lastModified: Date.now() }])
+        const note = { title: title, body: body, lastModified: Date.now() };
+        console.log(note)
+        //encryption of note variable
+        setNotes(prevNotes => [...prevNotes, note])
         setIndex(notes.length);
         setMode(1);
     }
@@ -37,7 +41,7 @@ const Home = () => {
     }
 
     React.useEffect(() => {
-        fetch(process.env.REACT_APP_BACKEND_URL + '/users/notes', { credentials: 'include' }).then(res => res.text()).then(res => console.log(res))
+        axios.get('/users/notes').then(res => console.log(res.data));
     }, [])
 
     return (
