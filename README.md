@@ -5,5 +5,3 @@ This is the repository for collaborating on the project for Software Privacy cou
 Source code, workflow and contributions are added in the respective folders.
 
 Instructions to run are mentioned below.
-
-Checking...
