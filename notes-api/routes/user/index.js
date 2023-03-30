@@ -1,3 +1,5 @@
+import * as dotenv from 'dotenv';
+dotenv.config()
 import express from "express";
 import { expressjwt } from "express-jwt";
 import { User } from "../../models/user.model.js";
@@ -24,15 +26,13 @@ userRouter.post('/', async (req, res, next) => {
 })
 
 userRouter.get('/notes', expressjwt({
-    secret: process.env.JWT_SECRET || 'secret',
-    algorithms: ['HS256'],
+    secret: `${process.env.JWT_SECRET}`,
+    algorithms: [`${process.env.JWT_ALGORITHM}`],
     getToken: function fromCookie(req) {
-        console.log(req.cookies)
         if (req.cookies) return req.cookies.jwt;
         return null;
     }
 }), (req, res) => {
-    console.log(req.auth)
-    if (!req.auth.admin) return res.sendStatus(401);
+    if (!req.auth.payload) return res.sendStatus(401);
     res.sendStatus(200);
 })
