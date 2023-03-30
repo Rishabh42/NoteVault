@@ -1,7 +1,11 @@
+import * as dotenv from 'dotenv';
+dotenv.config()
 import express from "express";
-import { expressjwt } from "express-jwt";
+import mongoose from 'mongoose';
+import { Note } from '../../models/note.model.js';
 import { User } from "../../models/user.model.js";
 export const userRouter = express.Router();
+
 
 // Function to check if user exists and return nonce (handled by user schema)
 userRouter.get('/', async (req, res, next) => {
@@ -23,16 +27,22 @@ userRouter.post('/', async (req, res, next) => {
     }
 })
 
-userRouter.get('/notes', expressjwt({
-    secret: process.env.JWT_SECRET || 'secret',
-    algorithms: ['HS256'],
-    getToken: function fromCookie(req) {
-        console.log(req.cookies)
-        if (req.cookies) return req.cookies.jwt;
-        return null;
+userRouter.get('/notes', async (req, res) => {
+    if (!req.auth.payload) return res.sendStatus(401);
+    try {
+        const notes = await Note.find({ userId: mongoose.Types.ObjectId(req.auth.payload.id) })
+        res.json({ notes: notes });
+    } catch {
+        res.status(500).json({ error: "Error retrieving notes" });
     }
-}), (req, res) => {
-    console.log(req.auth)
-    if (!req.auth.admin) return res.sendStatus(401);
-    res.sendStatus(200);
+})
+
+userRouter.post('/notes', async (req, res) => {
+    if (!req.auth.payload) return res.sendStatus(401);
+    try {
+        const note = await Note.create({ ...req.body, userId: mongoose.Types.ObjectId(req.auth.payload.id) });
+        return res.json(note).status(201);
+    } catch (e) {
+        return res.status(500).json({ error: `Error creating notes: ${e}` });
+    }
 })
