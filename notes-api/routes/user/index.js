@@ -25,7 +25,7 @@ userRouter.post('/', async (req, res, next) => {
 
 userRouter.get('/notes', expressjwt({
     secret: process.env.JWT_SECRET || 'secret',
-    algorithms: [process.env.JWT_ALGORITHM],
+    algorithms: ['HS256'],
     getToken: function fromCookie(req) {
         console.log(req.cookies)
         if (req.cookies) return req.cookies.jwt;
