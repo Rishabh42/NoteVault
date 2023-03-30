@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Web3 from 'web3';
+import axios from "../../axios";
 
 let web3 = undefined; // Will hold the web3 instance
 
@@ -10,13 +11,11 @@ const Login = () => {
         publicAddress,
         signature,
     }) =>
-        fetch(`${process.env.REACT_APP_BACKEND_URL}/auth`, {
-            body: JSON.stringify({ publicAddress, signature }),
+        axios.post('/auth', { publicAddress, signature }, {
             headers: {
                 'Content-Type': 'application/json',
             },
-            method: 'POST',
-        }).then((response) => response.json());
+        }).then((response) => response);
 
     const handleSignMessage = async ({
         publicAddress,
@@ -38,13 +37,11 @@ const Login = () => {
     };
 
     const handleSignup = (publicAddress) =>
-        fetch(`${process.env.REACT_APP_BACKEND_URL}/users`, {
-            body: JSON.stringify({ publicAddress }),
+        axios.post('/users', { publicAddress }, {
             headers: {
                 'Content-Type': 'application/json',
             },
-            method: 'POST',
-        }).then((response) => response.json());
+        }).then((response) => response);
 
     const handleClick = async () => {
         // Check if MetaMask is installed
@@ -80,13 +77,13 @@ const Login = () => {
         setLoading(true);
 
         // Look if user with current publicAddress is already present on backend
-        fetch(
-            `${process.env.REACT_APP_BACKEND_URL}/users?publicAddress=${publicAddress}`
+        axios.get(
+            `/users?publicAddress=${publicAddress}`
         )
-            .then((response) => response.json())
             // If yes, retrieve it. If no, create it.
-            .then((users) =>
-                users.length ? users[0] : handleSignup(publicAddress)
+            .then((response) =>
+                response.data.users.length ? response.data.users[0] : handleSignup(publicAddress)
+
             )
             // Popup MetaMask confirmation modal to sign message
             .then(handleSignMessage)
