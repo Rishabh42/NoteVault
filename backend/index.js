@@ -22,9 +22,4 @@ const PORT = process.env.PORT || 8080;
 //Import routers 
 app.use('/api', mainRouter);
 
-app.get('/api/test', (req, res) => {
-    console.log(req.cookies)
-    res.send("Note taking app");
-})
-
 app.listen(PORT, () => console.log(`App listening on port ${PORT}`));

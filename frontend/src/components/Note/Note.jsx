@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import InputBase from '@mui/material/InputBase';
 
 
-const Note = ({ initTitle, initBody, updateNote }) => {
+const Note = ({ initTitle, initBody, updateNote, deleteNote }) => {
     const [title, setTitle] = React.useState("");
     const [body, setBody] = React.useState("");
 
@@ -25,6 +25,7 @@ const Note = ({ initTitle, initBody, updateNote }) => {
             }}
         >
             <Button variant="contained" onClick={handleSave}>Save</Button>
+            <Button variant="contained" onClick={deleteNote}>Delete</Button>
             <InputBase fullWidth placeholder="Add title..." value={title} onChange={(e) => setTitle(e.target.value)} />
             <InputBase multiline fullWidth maxRows={Infinity} placeholder="Add body..." sx={{ mt: 3 }} value={body} onChange={(e) => setBody(e.target.value)} />
         </Box>
