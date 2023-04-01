@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Web3 from 'web3';
 import axios from "../../axios";
 
 let web3 = undefined; // Will hold the web3 instance
 
 const Login = () => {
+    const navigate = useNavigate('/home');
     const [loading, setLoading] = useState(false); // Loading button state
 
     const handleAuthenticate = ({
@@ -90,7 +92,7 @@ const Login = () => {
             // Send signature to backend on the /auth route
             .then(handleAuthenticate)
             // Pass accessToken back to parent component (to save it in localStorage)
-            .then(() => window.alert("Login successful"))
+            .then(() => navigate('/home'))
             .catch((err) => {
                 window.alert(err);
                 setLoading(false);

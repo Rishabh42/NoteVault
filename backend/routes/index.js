@@ -14,4 +14,4 @@ mainRouter.use('/users', expressjwt({
         if (req.cookies) return req.cookies.jwt;
         return null;
     }
-}).unless({ path: [{ url: '/', methods: ['GET', 'POST'] }] }), userRouter);
+}).unless({ path: [{ url: '/api/users', methods: ['GET', 'POST'] }] }), userRouter);

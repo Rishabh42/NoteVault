@@ -106,7 +106,15 @@ authRouter.post('/', async (req, res, next) => {
                     )
                 );
             })
-            .then((accessToken) => res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 28800000 }).send())
+            .then((accessToken) => res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 360000 }).send())
             .catch(next)
     );
+})
+
+authRouter.get('/logout', (req, res) => {
+    try {
+        res.status(202).clearCookie('jwt').json({ message: 'Logged out successfully' })
+    } catch {
+        res.status(500).json({ error: 'Error logging out' })
+    }
 })
