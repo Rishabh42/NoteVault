@@ -12,11 +12,15 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import Note from '@mui/icons-material/NotesTwoTone';
+import { useLocation, useNavigate } from 'react-router-dom';
+import axios from '../../axios';
+import { authenticate } from '../../services/auth.service';
 
-const pages = ['Log In'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {
+    const location = useLocation();
+    const navigate = useNavigate();
+    const pages = location.pathname == "/home" ? ['Home'] : ['Log In'];
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -34,6 +38,25 @@ function ResponsiveAppBar() {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
+
+    const handleLogin = () => {
+        authenticate()
+            .then(() => navigate('/home'))
+            .catch((err) => {
+                window.alert(err);
+            });
+    }
+
+    const handleLogout = async () => {
+        try {
+            const response = await axios.get('/auth/logout');
+            if (response.status === 202) {
+                navigate('/')
+            }
+        } catch {
+            alert("Error logging out");
+        }
+    }
 
     return (
         <AppBar position="static">
@@ -89,7 +112,7 @@ function ResponsiveAppBar() {
                         >
                             {pages.map((page) => (
                                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">{page}</Typography>
+                                    <Typography textAlign="center" component="a" onClick={page === "Home" ? () => navigate("/home") : () => handleLogin()}>{page}</Typography>
                                 </MenuItem>
                             ))}
                         </Menu>
@@ -117,7 +140,7 @@ function ResponsiveAppBar() {
                         {pages.map((page) => (
                             <Button
                                 key={page}
-                                onClick={handleCloseNavMenu}
+                                onClick={page === "Home" ? () => navigate("/home") : () => handleLogin()}
                                 sx={{ my: 2, color: 'white', display: 'block' }}
                             >
                                 {page}
@@ -125,7 +148,7 @@ function ResponsiveAppBar() {
                         ))}
                     </Box>
 
-                    <Box sx={{ flexGrow: 0 }}>
+                    {location.pathname == "/home" && <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
@@ -147,13 +170,11 @@ function ResponsiveAppBar() {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
-                            {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                    <Typography textAlign="center">{setting}</Typography>
-                                </MenuItem>
-                            ))}
+                            <MenuItem key={'logout'} onClick={handleCloseUserMenu}>
+                                <Typography textAlign="center" component="a" onClick={handleLogout}>Log Out</Typography>
+                            </MenuItem>
                         </Menu>
-                    </Box>
+                    </Box>}
                 </Toolbar>
             </Container>
         </AppBar>
