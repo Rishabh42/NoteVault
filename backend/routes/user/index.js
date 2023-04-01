@@ -50,7 +50,7 @@ userRouter.post('/notes', async (req, res) => {
 userRouter.patch('/notes', async (req, res) => {
     if (!req.auth.payload) return res.sendStatus(401);
     try {
-        await Note.updateOne({ _id: new mongoose.Types.ObjectId(req.body.id) }, { note: req.body.note });
+        await Note.updateOne({ _id: new mongoose.Types.ObjectId(req.body.id), userId: new mongoose.Types.ObjectId(req.auth.payload.id) }, { note: req.body.note });
         return res.sendStatus(204);
     } catch (e) {
         return res.status(304).json({ error: `Error updating note: ${e}` });
@@ -61,7 +61,7 @@ userRouter.delete('/notes', async (req, res) => {
     if (!req.auth.payload) return res.sendStatus(401);
     try {
         if (req.query && req.query.id) {
-            const response = await Note.deleteOne({ _id: new mongoose.Types.ObjectId(req.query.id) });
+            await Note.deleteOne({ _id: new mongoose.Types.ObjectId(req.query.id), userId: new mongoose.Types.ObjectId(req.auth.payload.id) });
             return res.sendStatus(204);
         }
         return res.status(404).json({ error: "Note not found" });

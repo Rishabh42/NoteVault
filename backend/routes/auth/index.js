@@ -106,7 +106,7 @@ authRouter.post('/', async (req, res, next) => {
                     )
                 );
             })
-            .then((accessToken) => res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600000 }).send())
+            .then((accessToken) => res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 360000 }).send())
             .catch(next)
     );
 })

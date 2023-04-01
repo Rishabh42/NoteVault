@@ -6,15 +6,21 @@ import Button from "@mui/material/Button";
 import ButtonBase from '@mui/material/ButtonBase';
 import Grid from "@mui/material/Unstable_Grid2";
 import Typography from "@mui/material/Typography";
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
 import CreateNote from '../CreateNote/CreateNote';
 import axios from "../../axios";
 import { useNavigate } from 'react-router-dom';
+import NoteAdd from "@mui/icons-material/NoteAdd";
+import NoNotes from "../../assets/images/no_notes.svg"
 
 const NoteListItem = ({ title, lastModified }) => (
-    <Box sx={{ background: "#ddd" }} >
-        <Typography variant='h6'>{title}</Typography>
-        <Typography>{new Date(lastModified).toLocaleString()}</Typography>
-    </Box>
+    <Card sx={{ backgroundColor: "primary.dark", my: 1, boxShadow: 3 }}>
+        <CardContent>
+            <Typography variant='h6' fontWeight="bold" color="white">{title}</Typography>
+            <Typography color="white">{new Date(lastModified).toLocaleString()}</Typography>
+        </CardContent>
+    </Card>
 )
 
 const Home = () => {
@@ -78,21 +84,21 @@ const Home = () => {
     const discardNote = () => setMode(1);
 
     return (
-        <Box sx={{ flexGrow: 1, m: 2 }}>
+        <Box sx={{ flexGrow: 1 }}>
             <Grid container columnGap={2}>
-                <Grid xs={4} justifyContent="center" >
-                    <Button variant="contained" onClick={() => setMode(0)} disabled={mode === 0}>Add Note</Button>
-                    {notes.length === 0 ? <Typography>No Notes</Typography> : notes.map((note, i) => (
-                        <ButtonBase sx={{ display: "block", width: "100%", textAlign: "left" }} onClick={() => setIndex(i)}>
+                <Grid xs={3} sx={{ borderRight: '#eee 1px solid', }} m={2} >
+                    <Button variant="contained" onClick={() => setMode(0)} disabled={mode === 0}><NoteAdd /> Add Note</Button>
+                    {notes.length === 0 ? <><Typography variant='h5' textAlign="center" m={4} color="primary">Let's make some notes!</Typography> <img src={NoNotes} width="70%" alt="No notes found" /> </> : notes.map((note, i) => (
+                        <ButtonBase sx={{ display: "block", width: "95%", textAlign: "left" }} onClick={() => setIndex(i)}>
                             <NoteListItem key={note.id} title={note.title || "Title"} lastModified={note.lastModified} />
                         </ButtonBase>
                     ))}
                 </Grid>
-                <Grid xs={7}>
+                <Grid xs={8} m={2}>
                     {mode && notes.length > 0 ? <Note initTitle={notes[index].title} initBody={notes[index].body} updateNote={updateNote} deleteNote={deleteNote} /> : <CreateNote addNote={addNote} discardNote={discardNote} />}
                 </Grid>
-            </Grid>
-        </Box>
+            </Grid >
+        </Box >
     )
 }
 
