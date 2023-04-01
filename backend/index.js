@@ -11,8 +11,8 @@ app.use(cors({ origin: true, credentials: true }));
 app.use(cookieParser());
 
 //Connect to MongoDB database
-const uri = `mongodb://${process.env.DB_USERNAME}:${process.env.DB_PWD}@${process.env.MONGO_URI}/${process.env.DB_NAME}?authMechanism=DEFAULT&authSource=${process.env.DB_NAME}`;
-const connectToDb = async () => await mongoose.connect(uri);
+// const uri = `mongodb://${process.env.DB_USERNAME}:${process.env.DB_PWD}@${process.env.MONGO_URI}/${process.env.DB_NAME}?authMechanism=DEFAULT&authSource=${process.env.DB_NAME}`;
+const connectToDb = async () => await mongoose.connect(process.env.MONGO_URI);
 connectToDb()
     .then(() => console.log("Database connected"))
     .catch(err => console.error(err));
