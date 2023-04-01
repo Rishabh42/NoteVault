@@ -45,6 +45,7 @@ const Home = () => {
 
     const addNote = async (title, body) => {
         const note = { title: title, body: body, lastModified: Date.now() };
+        // encrypt `note`
         const response = await axios.post('/users/notes', { note: JSON.stringify(note) });
         console.log(response);
         if (response.status === 201) {
@@ -58,7 +59,9 @@ const Home = () => {
 
     const updateNote = async (title, body) => {
         const lastModified = Date.now();
-        const response = await axios.patch('/users/notes', { id: notes[index].id, note: JSON.stringify({ title, body, lastModified }) })
+        const note = { id: notes[index].id, note: JSON.stringify({ title, body, lastModified }) };
+        // encrypt `note`
+        const response = await axios.patch('/users/notes', note)
         if (response.status === 204) {
             const note = { id: notes[index].id, title, body, lastModified };
             setNotes([...notes.slice(0, index), note, ...notes.slice(index + 1)])
