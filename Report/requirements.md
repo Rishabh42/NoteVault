@@ -1,12 +1,13 @@
-## Requirements
+# Requirements
 
-* **System Purpose and Scope:** 
+## **System Purpose and Scope:** 
   We intend to design a privacy oriented note taking application focusing on the _KISS_ principle. Our inspiration was the old school way of taking notes in a paper notebook. We wanted to design an app that does just that and nothing else unlike a host of other note taking apps available today. Most of these other apps have intrusive motivations behind their design. Either they are ingesting user's data for training their LLMs, profiling users across different products of the same ecosystem or tracking the user's behaviour through the content of their notes. Though, we concede that these alternatives provide multiple additional features such as text completion and grammar check but it comes at the cost of privacy and simplicity. The need to design such an app arised from the lack of alternatives which promise to keep our data private and provide enough functionality to simply make a note.
 
-  **System description:**
+##  **System description:**
   We will design a web app based note taking system where users will not be expected to divulge personally identifiable information for logging in to the app. We do not want to mine the user's content nor store at a central server. We want the user data to be encrypted and spread out over different devices so that there is no central point of failure. Since the data will be encrypted, we postulate that storing it in a distributed manner will not be an issue rather it will add to the security of the content. The app will store only text data and we will not allow external third party extensions to interface with the app.
 
-* **Sample Systems:** Briefly describe and refer to the home page of systems in the same class. Presumably these would be systems that are _not_ implemented following the principles of Privacy by Design. Envision this section as a kind of comparison between your future system and the existing "competition" (see [the Threema docs](https://threema.ch/en/messenger-comparison) for an example of what this can look like).
+## **Sample Systems:** 
+Briefly describe and refer to the home page of systems in the same class. Presumably these would be systems that are _not_ implemented following the principles of Privacy by Design. Envision this section as a kind of comparison between your future system and the existing "competition" (see [the Threema docs](https://threema.ch/en/messenger-comparison) for an example of what this can look like).
 
 
 <table>
@@ -208,9 +209,61 @@ But since they can read whole data before encrypting, it comes down to users pla
   </tr>
 </table>
 
-* **Functional Requirements:** List, using a structured format (e.g., enumerated lists organized by section) the main functional requirements your system will support. Include in this list any required system or user interface requirements.
 
-* **Privacy Requirements:** List, using a structured format (e.g., enumerated lists organized by section) the main privacy requirements your system will support. 
+## **Functional Requirements:** 
+
+1. The system shall allow the users to access the notes without requiring the divulgence of users' PII such as name, date of birth or Email addresses.
+2. Users must be able to login to the application without a steep learning curve to understand the new way of sign-in process without requiring password and email identifiers. (The login process should be intuitive and self-explanatory.)
+3. The login module must be compatible with web3.
+4. The system should maintain clarity and transparency with respect to each action offered to the user (from the privacy context). Further, the locus of control should be from the user's point of view and there shall not be blackbox components in the system where the user is not mentally aware of what is happening with their data.
+5. System requirements
+    1. This is a web app so it shall be supported in the commonly used modern browsers.
+    2. It shall work on systems with minimal requirements. To be specific, it requires at least 512MB of RAM and 50 MB of disk space for cache in the worst case. 
+6. User interface requirements:
+    3. It should be rendered in most of the common resolutions (720p and full HD) and monitors found in modern day computing devices.
+    4. It is not intended to be a touch supported application. The main method of control would be through mouse and keyboard found in most of the modern day laptops and computers.
+7. In-app functionalities:
+    5. The user shall be able to create notes associated with his/her private meta-mask (string of random characters which allows a user to login and access their data).
+    6. The user shall be able to modify and delete notes which he/she owns.
+    7. No user shall be able to access any notes or content data without providing the private metamask string. (see description above)
+    8. The user shall not be required to remember and keep track of private meta-mask string. The client side functionality must assist the user in keeping track of meta-mask and taking the burden off the user while also ensuring the private string is not visible to anyone else apart from the user.
+    9. The notes which the user creates shall only consist of text. There will be no additional file allowed to be stored in the notes either directly or as an attachment.
+    10. The notes which the user creates shall offer markdown support.
+    11. There should be a logging out functionality which will close the session associated with the private meta-mask string associated with the user.
+8. Data management: This section will cover the requirements for protection and retention of notes data which the user creates. Also, it will explain the storage of the content and the two modes offered in our app.
+    12. The system shall offer end to end encryption. The notes created by the user must be encrypted at client end itself. The app must not be able to make sense of the user's notes once they leave the client’s device. Also, the keys for decrypting the notes should be decoupled from the storage location of the encrypted notes.
+    13. By default, the data should be retained for 12 months from the date it is created. If there is no activity by the user for those notes for a period of 12 months, then those notes will become eligible for deletion. If the user modifies those notes during this period then the 12 month counter will be revised from the modification time else after 12 months the user will get an expiry alert for those notes, after which they will be deleted.
+    14. The app must offer two storage modes whereby the user can choose to keep their data on the server outside their machine or they can keep all their data on their own machine. In case, the user switches from server mode to local mode, all the data stored so far in the server should be copied to local machine of the user and then deleted from the server.
+
+
+## **Privacy Requirements:**
+
+1. User data collection
+    1. The system must not collect user data to be stored in an unencrypted manner. There must not be any scenario where the system’s backend can make sense of the actual content contained in the user’s notes. By design, once the notes are saved by the user, they should be encrypted at the client’s end before leaving the user's machine for the server.
+    2. Notes should be visible and understood by only the user who created those.
+    3. The system shall not collect any personal information from the user for the purposes of identification and create a record in the database. There must not be any linkage between the identity of the user, the usage patterns on the app and the content user creates (or) modifies.
+2. User data storage
+    4. All the data created by the user shall be stored in an encrypted format. Unencrypted data from users shall only be handled on the client’s device. There must not be any access provided to third party extensions to data stored in the system.
+    5. In the local mode of usage, the app should not keep any data on the server and if previously the server mode was being used then the data from the server should be moved to the local client storage before being deleted on the server.
+3. User data retention
+    6. By default the retention period of user data is set at 12 months based on the creation and modification time after which the data will automatically be deleted.
+4. Data protection
+    7. The encryption key for the notes should not be stored along with the encrypted data at the server. Further, the user must not be expected to keep track of their encryption key.
+    8. Users shall make sure that their password to utilize metamask remains secure. They will not be expected to keep track of other keys or strings nor will they need to provide any other personal information to establish their profile for keeping track of data associated with their account.
+5. User profiling
+    9. The system must not establish linkages between the content of the user’s notes and the details they provide to login the to app. Since the only requirement from the user to establish authenticity for logging in is the private metamask key, the system must not correlate the details contained within the notes to the key. 
+6. Data Mining
+    10. Since the data stored at servers is encrypted, thus the system must not be in a position to try to uncover patterns in the stored user data.
+7. Compliance
+    11. At the client end, while the user is working with their notes, the system must not scan or index the content being worked upon. After saving the notes, the data must be encrypted. By design, at no point must the system be able to be aware of the content contained in the notes. This means that the system shall not be able to filter or block any specific content because it is not aware of the existence of such content. From a compliance perspective,  the age of users using the app shall be restricted by including a self-declaration check box from users when they try to use our web app.
+    12. The application shall comply with the gdpr processing standards both in the local and server storage mode.
+8. Transparency and clarity
+    13. The users shall be aware of the implications of their actions from a privacy point of view, on the application at each step. The interface must be kept straightforward and simple so that actions may be described in a complete manner.
+    14. The application shall be upfront about the storage location and encryption standards of the user’s notes.
+9. Accountability
+    15. The application must have a dedicated grievance redressal system through issues on gitlab where anyone can post the issues they have seen in the app without revealing their meta mask.
+    16. There shall be an email address (associated to a designated privacy protection officer for the app) where concerns can be sent if the users are comfortable enough to reach out over email.
+
 
 * **Privacy by Design:** Explain how your system will realize the principles of privacy by design.
 
