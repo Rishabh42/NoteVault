@@ -28,14 +28,13 @@ const theme = createTheme({
 });
 
 function App() {
-  const [storage, setStorage] = React.useState('local')
   return (
     <ThemeProvider theme={theme}>
       <Router>
-        <Navbar storage={storage} setStorage={setStorage} />
+        <Navbar />
         <Routes>
           <Route path="/" element={<Landing />} />
-          <Route path="/home" element={<Home storage={storage} />} />
+          <Route path="/home" element={<Home />} />
         </Routes>
       </Router>
     </ThemeProvider>

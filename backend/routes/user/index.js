@@ -33,6 +33,7 @@ userRouter.get('/notes', async (req, res) => {
         const notes = await Note.find({ userId: new mongoose.Types.ObjectId(req.auth.payload.id) }, 'note')
         res.json({ notes: notes });
     } catch (e) {
+        console.log(e)
         res.status(500).json({ error: `Error retrieving notes: ${e}` });
     }
 })
@@ -41,8 +42,9 @@ userRouter.post('/notes', async (req, res) => {
     if (!req.auth.payload) return res.sendStatus(401);
     try {
         const response = await Note.create({ ...req.body, userId: new mongoose.Types.ObjectId(req.auth.payload.id) });
-        return res.status(201).json({ id: response._id, ...JSON.parse(response.note) });
+        return res.status(201).json({ _id: response._id, ...JSON.parse(response.note) });
     } catch (e) {
+        console.log(e)
         return res.status(500).json({ error: `Error creating note: ${e}` });
     }
 });
@@ -50,9 +52,10 @@ userRouter.post('/notes', async (req, res) => {
 userRouter.patch('/notes', async (req, res) => {
     if (!req.auth.payload) return res.sendStatus(401);
     try {
-        await Note.updateOne({ _id: new mongoose.Types.ObjectId(req.body.id), userId: new mongoose.Types.ObjectId(req.auth.payload.id) }, { note: req.body.note });
+        await Note.updateOne({ _id: new mongoose.Types.ObjectId(req.body._id), userId: new mongoose.Types.ObjectId(req.auth.payload.id) }, { note: req.body.note });
         return res.sendStatus(204);
     } catch (e) {
+        console.log(e)
         return res.status(304).json({ error: `Error updating note: ${e}` });
     }
 });
@@ -67,6 +70,7 @@ userRouter.delete('/notes', async (req, res) => {
         return res.status(404).json({ error: "Note not found" });
 
     } catch (e) {
+        console.log(e)
         return res.status(304).json({ error: `Error deleting note: ${e}` });
     }
 })
