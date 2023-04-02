@@ -1,6 +1,4 @@
-## Requirements Template
-
-_Customize the structure of your requirements document to fit your needs and minimize clutter and useless boilerplate text. However, include at least the following elements, prominently labeled:_
+## Requirements
 
 * **System Purpose and Scope:** 
   We intend to design a privacy oriented note taking application focusing on the _KISS_ principle. Our inspiration was the old school way of taking notes in a paper notebook. We wanted to design an app that does just that and nothing else unlike a host of other note taking apps available today. Most of these other apps have intrusive motivations behind their design. Either they are ingesting user's data for training their LLMs, profiling users across different products of the same ecosystem or tracking the user's behaviour through the content of their notes. Though, we concede that these alternatives provide multiple additional features such as text completion and grammar check but it comes at the cost of privacy and simplicity. The need to design such an app arised from the lack of alternatives which promise to keep our data private and provide enough functionality to simply make a note.
@@ -10,11 +8,254 @@ _Customize the structure of your requirements document to fit your needs and min
 
 * **Sample Systems:** Briefly describe and refer to the home page of systems in the same class. Presumably these would be systems that are _not_ implemented following the principles of Privacy by Design. Envision this section as a kind of comparison between your future system and the existing "competition" (see [the Threema docs](https://threema.ch/en/messenger-comparison) for an example of what this can look like).
 
+
+<table>
+  <tr>
+   <td>System/ Application
+   </td>
+   <td><strong>Our app</strong>
+   </td>
+   <td>Evernote
+   </td>
+   <td>Google Keep
+   </td>
+   <td>OneNote
+   </td>
+   <td>Notion
+   </td>
+   <td>Saferoom
+<p>
+(interesting add on)
+   </td>
+  </tr>
+  <tr>
+   <td>Brief Description
+   </td>
+   <td>Keeps things simple. No extra fluff with a deep focus on privacy.
+   </td>
+   <td>homepage 
+<p>
+<a href="https://evernote.com/">https://evernote.com/</a>
+<p>
+In addition to note taking offers sync and organize, web clipper and calendar.
+<p>
+Subscription model: Different tiers offered to users based on payment plan selected.
+   </td>
+   <td>Flagship free note taking offering by Google.
+<p>
+Add notes, lists, reminders, photos and audio to keep.
+<p>
+<a href="https://www.google.com/keep/">https://www.google.com/keep/</a>
+   </td>
+   <td>Flagship free note taking offering by Microsoft.
+<p>
+<a href="https://www.onenote.com/?public=1">https://www.onenote.com/?public=1</a>
+   </td>
+   <td>Offers a really good set of features but it is closed source.
+<p>
+<a href="https://www.notion.so/product">https://www.notion.so/product</a>
+<p>
+Privacy policy -
+<p>
+<a href="https://www.notion.so/Privacy-Policy-3468d120cf614d4c9014c09f6adc9091">https://www.notion.so/Privacy-Policy-3468d120cf614d4c9014c09f6adc9091</a>
+<p>
+Terms and privacy - <a href="https://www.notion.so/Terms-and-Privacy-28ffdd083dc3473e9c2da6ec011b58ac">https://www.notion.so/Terms-and-Privacy-28ffdd083dc3473e9c2da6ec011b58ac</a>
+   </td>
+   <td>Homepage
+<p>
+<a href="https://www.getsaferoom.com/">https://www.getsaferoom.com/</a>
+<p>
+It is an encryption extension to Evernote and OneNote.
+<p>
+It is a client side application which can function as an add on to Evernote or OneNote.
+<p>
+The premise being, saferoom encrypts your notes before they are uploaded to servers of whichever note taking service you are using such as EverNote or OneNote.
+<p>
+<em>“Once encrypted by Saferoom, the note is uploaded to Evernote or OneNote Cloud. The encrypted content will be treated as Evernote or OneNote note but no one could read or scan it.”</em>
+<p>
+<a href="https://www.getsaferoom.com/">https://www.getsaferoom.com/</a> - step 3 - sync
+   </td>
+  </tr>
+  <tr>
+   <td>Privacy by Design - anonymous usability
+   </td>
+   <td>Yes, no need to provide identifying user information for logging in.
+   </td>
+   <td>No, you have to provide email to create a profile which is then linked to your devices.
+   </td>
+   <td>Your google account is used for logging in. Tracked across the whole google ecosystem.
+   </td>
+   <td>Your outlook email is needed to log in. Tracked across the o365 ecosystem.
+   </td>
+   <td>Need to create an account to use the app.
+   </td>
+   <td>You need to configure your master key and add an Evernote or OneNote account.
+   </td>
+  </tr>
+  <tr>
+   <td>Notes are encrypted
+   </td>
+   <td>Yes, notes are encrypted. We do not have access to the content of the user's notes.
+   </td>
+   <td>You can select text to encrypt. Unclear if all notes are encrypted by default at rest.  AES-128 bit algorithm used.
+<p>
+<a href="https://help.evernote.com/hc/en-us/articles/208314128-What-type-of-encryption-does-Evernote-use">https://help.evernote.com/hc/en-us/articles/208314128-What-type-of-encryption-does-Evernote-use</a>
+   </td>
+   <td>It is not totally encrypted since they can access the notes you make to offer you better services.
+<p>
+But the files you upload with the notes are encrypted in transit and at rest.
+   </td>
+   <td>All notes are not end to end encrypted by default.
+<p>
+You can password protect certain sections of notebooks which would be secured by AES 128-bit.
+<p>
+<a href="https://support.microsoft.com/en-us/office/protect-notes-with-a-password-in-microsoft-onenote-280af2bf-0959-4889-9191-e326b2bbedee#:~:text=OneNote%20uses%20128%2Dbit%20AES%20encryption%20to%20secure%20password%2Dprotected%20notebook%20sections">https://support.microsoft.com/en-us/office/protect-notes-with-a-password-in-microsoft-onenote-280af2bf-0959-4889-9191-e326b2bbedee#:~:text=OneNote%20uses%20128%2Dbit%20AES%20encryption%20to%20secure%20password%2Dprotected%20notebook%20sections</a>.
+   </td>
+   <td>Yes, notes are encrypted at rest and in transit.
+   </td>
+   <td>Yes
+   </td>
+  </tr>
+  <tr>
+   <td>No mining of user’s content for any purpose
+<p>
+(write and forget principle)
+   </td>
+   <td>We do not run any sort of content indexing on the data contained within the user's notes. 
+   </td>
+   <td>Evernote retains your content unless you take explicit steps to delete notes and/or notebooks.
+<p>
+<a href="https://evernote.com/security">https://evernote.com/security</a> - data retention and deletion
+<p>
+From their privacy policy, we found they collect basic subscriber data, usage data, location and device information.
+<p>
+Source - <a href="https://evernote.com/privacy/policy">https://evernote.com/privacy/policy</a>
+   </td>
+   <td>Keep uses data to improve your experience
+<p>
+<a href="https://support.google.com/keep/answer/10431250?hl=en#:~:text=Keep%20uses%20data%20to%20improve%20your%20experience">https://support.google.com/keep/answer/10431250?hl=en#:~:text=Keep%20uses%20data%20to%20improve%20your%20experience</a>
+   </td>
+   <td>Data used to improve experience.
+   </td>
+   <td>Analytics and logging enabled. Services of subprocessors utilized.
+<p>
+(Notion’s list of subprocessors - <a href="https://www.notion.so/Notion-s-List-of-Subprocessors-268fa5bcfa0f46b6bc29436b21676734">https://www.notion.so/Notion-s-List-of-Subprocessors-268fa5bcfa0f46b6bc29436b21676734</a>)
+<p>
+Source - <a href="https://www.notion.so/help/security-and-privacy">https://www.notion.so/help/security-and-privacy</a>
+   </td>
+   <td>Since, they don’t host any data directly, this point is not applicable to this app.
+   </td>
+  </tr>
+  <tr>
+   <td>Opensource
+   </td>
+   <td>Yes, we will release the code after course completion with permission. (of course!)
+   </td>
+   <td>It is not open source.
+   </td>
+   <td>It is not open source.
+   </td>
+   <td>It is not open source.
+   </td>
+   <td>It is not open source.
+   </td>
+   <td>Yes.
+<p>
+<a href="https://github.com/saferoom-app/saferoomlinux">https://github.com/saferoom-app/saferoomlinux</a>
+   </td>
+  </tr>
+  <tr>
+   <td>User profiling
+   </td>
+   <td>No, collection or linkage of user data with identities of users.
+   </td>
+   <td>Yes.
+<p>
+Quoting from their privacy policy under section on how they use the collected information.
+<p>
+Suggesting actions for you to take based on information you’ve stored.
+<p>
+<a href="https://evernote.com/privacy/policy#:~:text=Suggesting%20actions%20for%20you%20to%20take%20based%20on%20information%20you%E2%80%99ve%20stored">https://evernote.com/privacy/policy#:~:text=Suggesting%20actions%20for%20you%20to%20take%20based%20on%20information%20you%E2%80%99ve%20stored</a>.
+   </td>
+   <td>Keep is linked to your google profile
+   </td>
+   <td>OneNote is linked to our outlook profile.
+   </td>
+   <td>They can use any content stored with them in any way they deem applicable after de-identifying and aggregating information. They mention that once de-identified and aggregated, the data is no longer subject to terms of privacy policy and they <em>“may use and disclose such information in a number of ways, including research, internal analysis, analytics, and any other legally permissible purposes.”</em>
+<p>
+Source - Section 2 of <a href="https://www.notion.so/Privacy-Policy-3468d120cf614d4c9014c09f6adc9091#807ffef41d75415aa00376b297fed8b8">https://www.notion.so/Privacy-Policy-3468d120cf614d4c9014c09f6adc9091#807ffef41d75415aa00376b297fed8b8</a>
+   </td>
+   <td>Since, they don’t host any data directly, this point is not applicable to this app.
+<p>
+But since they can read whole data before encrypting, it comes down to users placing the trust in the app to not mine and use the content data of their notes.
+   </td>
+  </tr>
+  <tr>
+   <td>Web3 compatible
+   </td>
+   <td>Yes
+   </td>
+   <td>No, blockchain interface.
+   </td>
+   <td>No, blockchain interface.
+   </td>
+   <td>No, blockchain interface.
+   </td>
+   <td>No, blockchain interface.
+   </td>
+   <td>No, blockchain interface.
+   </td>
+  </tr>
+</table>
+
 * **Functional Requirements:** List, using a structured format (e.g., enumerated lists organized by section) the main functional requirements your system will support. Include in this list any required system or user interface requirements.
 
 * **Privacy Requirements:** List, using a structured format (e.g., enumerated lists organized by section) the main privacy requirements your system will support. 
 
 * **Privacy by Design:** Explain how your system will realize the principles of privacy by design.
+
+1. Proactive not Reactive; Preventative not Remedial The Privacy by Design (PbD)
+
+We have adapted the design of our application based on anticipated challenges to privacy. For instance, we seek not to store the encryption key for the encrypted notes. This means that even if we are forced to access the notes for some reason in future without user’s authorization, it will simply not be possible to retrieve that information. Further, as we are using metamask for login authorization, we need not be aware of any identifiable information from the user to establish the authenticity for login. We use the public metamask key for digital signature verification so that we don't even have to bring the private metamask key in the scope of our app.
+
+Proactively, we have provided the choice to user to keep their data on local storage or move it from server to the local storage at any point of time they choose to do so.
+
+2. Privacy as the Default Setting We can all be certain of one thing — the default rules! 
+
+Our application incorporates this principle to a very high extent. By default, we do not ask the user to reveal any information other than what is absolutely necessary for the functioning of the app. Even that information is minimal and cannot be linked to the user. Our app does not establish any linkages between the user and their content. Firstly, because the app itself is not aware about the real life identity of the user. Secondly, by design itself, once the user saves the notes on their machine, the app can no longer decrypt those notes because the app does not store the private encryption key for those notes. And by default, we seek to retain the notes user created for a period of one year. This is the timeframe we determined to have the best balance between offering the best functioning to the user and the privacy concerns of having data retained for a long time.. 
+
+3. Privacy Embedded into Design Privacy by Design
+
+We designed the system from the ground up keeping the privacy concerns at the center of our design process. We targeted this app at the subset of users who want to create written notes without worrying about the tracking and profiling by the big tech. For such an identified user base, our decisions while designing this app were based on keeping things simple to understand for the user and being upfront about the features built to protect the access as well as keeping the data collection to a minimum. At no point during the usage of the app, the user will have to provide any other data about themselves apart from what they are adding in the notes which is not accessible to the backend servers of our app. The idea was to replicate the act of taking notes in a notebook. Our architecture makes sure that there is flexibility to move the notes from the servers to local storage and even if users continue to use the servers, there is no scope for decryption to retrieve the content in the backend without user permission.
+
+4. Full Functionality — Positive-Sum, not Zero-Sum
+
+Our app demonstrates that it is possible to have all three, namely: privacy, security and usability. Our design was made at the intersection of these three concepts. How?
+
+Privacy: We do not establish any user profiling or collect data to identify users nor do we ask the users to provide the email or other PII to start using the app. We do not collect any tracking information about the user behavior or look through their notes for _“the so-called reason of enhancing their experience”. _ We offer the user the ability to privately create their notes in an already fully functioning enhanced self contained app.
+
+Security: We adopt encryption as a two pronged approach-
+
+
+
+1. As a way to protect user data against external data breaches.
+2. As a way of architectural decision to protect the data against internal company actions. Since we are not aware of the content in the notes, it is highly unlikely that in future with an organizational change, a policy could be introduced to retrieve the contents for some nefarious purposes.
+
+Usability: We offer a clean and simple interface without burdening users with additional features which can decrease the quality of overall user experience. Our goal was to ensure that mentally users should always feel i) in control of the app ii) of the data they have entered in the app iii) of the ability to remove their data at any moment without additional complications. We wanted the app to be user friendly enough so that users are able to have the same understanding of the app as anyone in the engineering department without going into the specifics.
+
+5. End-to-End Security — Full Lifecycle Protection
+
+Our app implements the protection of data from start to finish. Before even the collection of data, we make sure that we do not relate the identity of the user with the data being created. Then when the user saves the notes, we make sure to encrypt it so that it is protected at all places in its life cycle in the system. Lastly, we have a clear data deletion policy where we retain notes only for 12 months from the date of creation/ modification time.
+
+6. Visibility and Transparency — Keep it Open
+
+We intend to make our app open source after the successful completion of the course (with permission of course!). We have been upfront about the data collection and usage practices of the app. At no place in the life cycle of the app will the user have to provide any data about which they are unaware. Lastly, we have adopted a simplistic design approach so that all the functionalities are clear to the user without introducing any unneeded complexity by overburdening the user with features.
+
+7. Respect for User Privacy — Keep it User-Centric
+
+Our goal behind the design of the app was to provide the user with a better alternative to create text notes without being tracked by the big tech. From group up, the app was made with user concerns at forefront. We adapted our design to suit the needs we expected the users to have. For instance, we shall not collect user PII for logging in, all notes will be encrypted once they leave the user's machine, we will not store encryption keys in our servers and users have the option to use the app in local fashion removing all their content from the servers.
+
+
 
 ### References
 - [requirements document](https://doi.org/10.1109/IEEESTD.2018.8559686)
