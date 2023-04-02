@@ -3,6 +3,10 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
+import FormLabel from '@mui/material/FormLabel';
+import FormControl from '@mui/material/FormControl';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -11,18 +15,32 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
+import Stack from '@mui/material/Stack';
 import Note from '@mui/icons-material/NotesTwoTone';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from '../../axios';
 import { authenticate } from '../../services/auth.service';
+import Web3 from 'web3';
 
 
-function ResponsiveAppBar() {
+function ResponsiveAppBar({ storage, setStorage }) {
     const location = useLocation();
     const navigate = useNavigate();
     const pages = location.pathname == "/home" ? ['Home'] : ['Log In'];
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+    React.useEffect(() => {
+        const type = localStorage.getItem('storage');
+        if (type)
+            setStorage(type);
+    }, [])
+
+    const getPublicAddress = async () => {
+        let web3 = new Web3(window.ethereum);
+        const coinbase = await web3.eth.getCoinbase();
+        return coinbase;
+    }
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -37,6 +55,13 @@ function ResponsiveAppBar() {
 
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
+    };
+
+    const handleChange = (event) => {
+        const type = event.target.checked ? 'local' : 'remote';
+        console.log(type);
+        setStorage(type);
+        localStorage.setItem('storage', type);
     };
 
     const handleLogin = () => {
@@ -149,11 +174,19 @@ function ResponsiveAppBar() {
                     </Box>
 
                     {location.pathname == "/home" && <Box sx={{ flexGrow: 0 }}>
-                        <Tooltip title="Open settings">
-                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                            </IconButton>
-                        </Tooltip>
+                        <Stack direction="row" alignItems="center" spacing={3}>
+                            <Tooltip title="Open settings">
+                                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                                    <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                                </IconButton>
+                            </Tooltip>
+                            <FormControlLabel
+                                control={
+                                    <Switch checked={storage === 'local'} onChange={handleChange} color='secondary' name="storage" />
+                                }
+                                label="Store locally"
+                            />
+                        </Stack>
                         <Menu
                             sx={{ mt: '45px' }}
                             id="menu-appbar"
