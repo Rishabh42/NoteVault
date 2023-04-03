@@ -1,21 +1,24 @@
 import { db } from "../localDb";
 import axios from '../axios';
+import Crypto from "./crypto.service";
 
-export const switchStorage = (storage, notes) => {
+export const switchStorage = (storage, notes, key) => {
     if (notes.length) {
         if (storage === 'local') {
             return Promise.all(notes.map(async (note) => {
                 await deleteNotefromRemoteDB(note._id);
                 delete note._id;
-                const response = await addNotetoLocalDB(JSON.stringify(note));
-                return response;
+                const encryptedNote = await Crypto.encrypt(key, JSON.stringify(note))
+                const id = await addNotetoLocalDB(encryptedNote);
+                return { _id: id, ...note };
             }));
         } else if (storage === 'remote') {
             return Promise.all(notes.map(async (note) => {
                 await deleteNoteFromLocalDB(note._id);
                 delete note._id;
-                const response = await addNoteToRemoteDB(JSON.stringify(note));
-                return response.data;
+                const encryptedNote = await Crypto.encrypt(key, JSON.stringify(note))
+                const response = await addNoteToRemoteDB(encryptedNote);
+                return { _id: response.data._id, ...note };
             }));
         }
     };
@@ -35,7 +38,7 @@ export const addNotetoLocalDB = async (note) => {
         const id = await db.notes.add({
             note
         })
-        return { _id: id, ...JSON.parse(note) };
+        return id;
     } catch (error) {
         return error;
     }
@@ -47,7 +50,7 @@ export const updateNoteInLocalDB = async (updatedNote) => {
         await db.transaction('rw', db.notes, () => {
             return db.notes.put(updatedNote);
         });
-        return { _id: updatedNote.id, ...JSON.parse(updatedNote.note) };
+        return { _id: updatedNote._id };
     } catch (error) {
         return error;
     }
@@ -70,8 +73,8 @@ export const getNotesFromRemoteDB = async () => {
     try {
         const response = await axios.get('/users/notes');
         return response.data.notes;
-    } catch {
-        return [];
+    } catch (error) {
+        return Promise.reject(error);
     }
 }
 
@@ -81,7 +84,6 @@ export const addNoteToRemoteDB = async (note) => {
 }
 
 export const updateNoteInRemoteDB = async (note) => {
-    console.log(note);
     const response = await axios.patch('/users/notes', note);
     return response;
 }

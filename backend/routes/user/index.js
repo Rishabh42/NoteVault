@@ -42,7 +42,7 @@ userRouter.post('/notes', async (req, res) => {
     if (!req.auth.payload) return res.sendStatus(401);
     try {
         const response = await Note.create({ ...req.body, userId: new mongoose.Types.ObjectId(req.auth.payload.id) });
-        return res.status(201).json({ _id: response._id, ...JSON.parse(response.note) });
+        return res.status(201).json({ _id: response._id });
     } catch (e) {
         console.log(e)
         return res.status(500).json({ error: `Error creating note: ${e}` });

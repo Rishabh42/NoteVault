@@ -11,13 +11,10 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import Stack from '@mui/material/Stack';
 import Note from '@mui/icons-material/NotesTwoTone';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from '../../axios';
 import { authenticate } from '../../services/auth.service';
-import Web3 from 'web3';
-
 
 function ResponsiveAppBar() {
     const location = useLocation();
@@ -25,13 +22,6 @@ function ResponsiveAppBar() {
     const pages = location.pathname == "/home" ? ['Home'] : ['Log In'];
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
-
-
-    const getPublicAddress = async () => {
-        let web3 = new Web3(window.ethereum);
-        const coinbase = await web3.eth.getCoinbase();
-        return coinbase;
-    }
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
