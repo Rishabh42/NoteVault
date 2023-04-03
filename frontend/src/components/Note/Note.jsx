@@ -58,7 +58,10 @@ const Note = ({ initTitle, initBody, updateNote, deleteNote }) => {
                     height: "90%", '&.MuiInputBase-root': {
                         background: "#efefef",
                         p: 1,
-                        borderRadius: 3
+                        borderRadius: 3,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'flex-start',
                     },
                 }} value={body} onChange={(e) => setBody(e.target.value)} />
 
