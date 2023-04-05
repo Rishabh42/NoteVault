@@ -16,7 +16,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import axios from '../../axios';
 import { authenticate } from '../../services/auth.service';
 
-
 function ResponsiveAppBar() {
     const location = useLocation();
     const navigate = useNavigate();

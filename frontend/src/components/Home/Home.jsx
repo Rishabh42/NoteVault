@@ -4,15 +4,19 @@ import Note from "../Note/Note";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import ButtonBase from '@mui/material/ButtonBase';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
 import Grid from "@mui/material/Unstable_Grid2";
 import Typography from "@mui/material/Typography";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CreateNote from '../CreateNote/CreateNote';
-import axios from "../../axios";
 import { useNavigate } from 'react-router-dom';
+import Web3 from 'web3';
 import NoteAdd from "@mui/icons-material/NoteAdd";
 import NoNotes from "../../assets/images/no_notes.svg"
+import { addNoteToRemoteDB, addNotetoLocalDB, deleteNoteFromLocalDB, deleteNotefromRemoteDB, getNotesFromLocalDB, getNotesFromRemoteDB, switchStorage, updateNoteInLocalDB, updateNoteInRemoteDB } from '../../services/note.service';
+import Crypto from '../../services/crypto.service';
 
 const NoteListItem = ({ title, lastModified }) => (
     <Card sx={{ backgroundColor: "primary.dark", my: 1, boxShadow: 3 }}>
@@ -27,60 +31,124 @@ const Home = () => {
     const navigate = useNavigate()
     const [notes, setNotes] = React.useState([]); // {_id: string, title: string, body: string, lastModified: Date}
     const [index, setIndex] = React.useState(0);
-    const [mode, setMode] = React.useState(0) // 1 - Display note, 0 - Create note
+    const [mode, setMode] = React.useState(0); // 1 - Display note, 0 - Create note
+    const [storage, setStorage] = React.useState('');
+
+    React.useEffect(() => {
+        const type = localStorage.getItem('storage');
+        if (type)
+            setStorage(type);
+    }, [])
 
     React.useEffect(() => {
         (async () => {
             try {
-                const response = await axios.get('/users/notes');
-                if (response.data.notes.length) {
-                    setNotes(response.data.notes.map(x => ({ id: x._id, ...JSON.parse(x.note) })));
+                let notes = [];
+                if (storage === 'local')
+                    notes = await getNotesFromLocalDB();
+                else if (storage === 'remote')
+                    notes = await getNotesFromRemoteDB();
+                if (notes.length) {
+                    const key = await getKey();
+                    const decryptedNotes = await Promise.all(notes.map(async (x) => {
+                        const decryptedNote = await Crypto.decrypt(key, x.note);
+                        return { _id: x._id, ...JSON.parse(decryptedNote) };
+                    }));
+                    setNotes(decryptedNotes);
                     setMode(1);
                 }
-            } catch {
-                navigate('/');
+            } catch (e) {
+                //navigate('/');
             }
         })();
-    }, [])
+    }, [storage]);
+
+    const getKey = async () => {
+        let web3 = new Web3(window.ethereum);
+        const coinbase = await web3.eth.getCoinbase();
+        return coinbase;
+    };
+
+    const handleChange = async (event) => {
+        const type = event.target.checked ? 'local' : 'remote';
+        setStorage(type);
+        localStorage.setItem('storage', type);
+        const key = await getKey();
+        const switchedNotes = await switchStorage(type, notes, key);
+        if (switchedNotes) setNotes(switchedNotes);
+    };
 
     const addNote = async (title, body) => {
+        const key = await getKey();
         const note = { title: title, body: body, lastModified: Date.now() };
-        // encrypt `note`
-        const response = await axios.post('/users/notes', { note: JSON.stringify(note) });
-        console.log(response);
-        if (response.status === 201) {
-            setNotes(prevNotes => [...prevNotes, response.data])
-            setIndex(notes.length);
-            setMode(1);
-        } else if (response.status === 401) {
-            navigate('/');
-        } else { alert("Error creating note"); }
+        const encryptedNote = await Crypto.encrypt(key, JSON.stringify(note));
+        if (storage === 'local') {
+            try {
+                const id = await addNotetoLocalDB(encryptedNote);
+                setNotes(prevNotes => [...prevNotes, { _id: id, ...note }])
+                setIndex(notes.length);
+                setMode(1);
+            } catch (error) {
+                alert(`Failed to add note: ${error}`);
+            }
+        } else if (storage === 'remote') {
+            const response = await addNoteToRemoteDB(encryptedNote);
+            if (response.status === 201) {
+                setNotes(prevNotes => [...prevNotes, { _id: response.data._id, ...note }])
+                setIndex(notes.length);
+                setMode(1);
+            } else if (response.status === 401) {
+                navigate('/');
+            } else { alert("Error creating note"); }
+        }
     }
 
     const updateNote = async (title, body) => {
         const lastModified = Date.now();
-        const note = { id: notes[index].id, note: JSON.stringify({ title, body, lastModified }) };
-        // encrypt `note`
-        const response = await axios.patch('/users/notes', note)
-        if (response.status === 204) {
-            const note = { id: notes[index].id, title, body, lastModified };
-            setNotes([...notes.slice(0, index), note, ...notes.slice(index + 1)])
-        } else if (response.status === 401) {
-            navigate('/');
-        } else {
-            alert("Error updating note");
+        const note = { _id: notes[index]._id, title, body, lastModified };
+        const key = await getKey();
+        const encryptedNote = await Crypto.encrypt(key, JSON.stringify({ title, body, lastModified }));
+        const updatedNote = { _id: notes[index]._id, note: encryptedNote }
+        if (storage === 'local') {
+            try {
+                await updateNoteInLocalDB(updatedNote);
+                setNotes([...notes.slice(0, index), note, ...notes.slice(index + 1)])
+            } catch {
+                alert("Error updating note");
+            }
+
+        } else if (storage === 'remote') {
+            const response = await updateNoteInRemoteDB(updatedNote);
+            if (response.status === 204) {
+                setNotes([...notes.slice(0, index), note, ...notes.slice(index + 1)])
+            } else if (response.status === 401) {
+                navigate('/');
+            } else {
+                alert("Error updating note");
+            }
         }
     }
 
     const deleteNote = async () => {
-        const response = await axios.delete(`/users/notes?id=${notes[index].id}`)
-        if (response.status === 204) {
-            setNotes([...notes.slice(0, index), ...notes.slice(index + 1)]);
-            setIndex(Math.max(index - 1, 0));
-        } else if (response.status === 401) {
-            navigate('/');
-        } else {
-            alert("Error deleting note");
+        const id = notes[index]._id;
+        if (storage === 'local') {
+            try {
+                await deleteNoteFromLocalDB(id);
+                setNotes(notes => notes.filter((x, i) => i !== index));
+                setIndex(Math.max(index - 1, 0));
+            } catch {
+                alert("Error deleting note");
+            }
+        } else if (storage === 'remote') {
+            const status = await deleteNotefromRemoteDB(id);
+            if (status === 204) {
+                setNotes(notes => notes.filter((x, i) => i !== index));
+                setIndex(Math.max(index - 1, 0));
+            } else if (status === 401) {
+                navigate('/');
+            } else {
+                alert("Error deleting note");
+            }
         }
     }
 
@@ -91,9 +159,15 @@ const Home = () => {
             <Grid container columnGap={2}>
                 <Grid xs={3} sx={{ borderRight: '#eee 1px solid', }} m={2} >
                     <Button variant="contained" onClick={() => setMode(0)} disabled={mode === 0}><NoteAdd /> Add Note</Button>
+                    <FormControlLabel
+                        control={
+                            <Switch checked={storage === 'local'} onChange={handleChange} color='secondary' name="storage" />
+                        }
+                        label="Store locally"
+                    />
                     {notes.length === 0 ? <><Typography variant='h5' textAlign="center" m={4} color="primary">Let's make some notes!</Typography> <img src={NoNotes} width="70%" alt="No notes found" /> </> : notes.map((note, i) => (
-                        <ButtonBase sx={{ display: "block", width: "95%", textAlign: "left" }} onClick={() => setIndex(i)}>
-                            <NoteListItem key={note.id} title={note.title || "Title"} lastModified={note.lastModified} />
+                        <ButtonBase key={note._id} sx={{ display: "block", width: "95%", textAlign: "left" }} onClick={() => setIndex(i)}>
+                            <NoteListItem title={note.title || "Title"} lastModified={note.lastModified} />
                         </ButtonBase>
                     ))}
                 </Grid>

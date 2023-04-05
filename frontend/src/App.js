@@ -1,4 +1,4 @@
-import './App.css';
+import * as React from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from './components/Home/Home';
 import Login from './components/Login/Login';
@@ -13,6 +13,9 @@ const theme = createTheme({
       light: "#8364D0",
       dark: "#37306B",
     },
+    secondary: {
+      main: "#D27685"
+    }
   },
   typography: {
     fontFamily: [
