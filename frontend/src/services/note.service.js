@@ -92,3 +92,21 @@ export const deleteNotefromRemoteDB = async (id) => {
     const response = await axios.delete(`/users/notes?id=${id}`);
     return response.status;
 }
+
+
+export const getLocalSecretKey = async () => {
+    const id = await db.keys.toArray();
+    return id;
+}
+
+export const addLocalSecretKey = async (key) => {
+    try {
+
+        const id = await db.keys.add({
+            key
+        })
+        return id;
+    } catch (error) {
+        return error;
+    }
+}
