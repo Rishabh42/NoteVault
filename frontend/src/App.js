@@ -5,6 +5,8 @@ import Login from './components/Login/Login';
 import Landing from './components/Landing/Landing';
 import Navbar from './components/Navbar/Navbar';
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Footer from './components/Footer/Footer';
+import PrivacyPolicy from './components/PrivacyPolicy/PrivacyPolicy';
 
 const theme = createTheme({
   palette: {
@@ -35,8 +37,10 @@ function App() {
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         </Routes>
       </Router>
+      <Footer />
     </ThemeProvider>
   );
 }

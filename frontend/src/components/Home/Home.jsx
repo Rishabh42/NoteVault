@@ -20,6 +20,7 @@ import { addLocalSecretKey, addNoteToRemoteDB, addNotetoLocalDB, deleteNoteFromL
 import crypto from "crypto";
 import Crypto from '../../services/crypto.service';
 
+
 const NoteListItem = ({ title, lastModified }) => (
     <Card sx={{ backgroundColor: "primary.dark", my: 1, boxShadow: 3 }}>
         <CardContent>

@@ -169,11 +169,11 @@ function ResponsiveAppBar() {
                     </Box>
 
                     {authenticated ? <Box sx={{ flexGrow: 0 }}>
-                        <Tooltip title="Your account">
+                        {address && <Tooltip title="Your account">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                                 <Chip sx={{ boxShadow: 3, color: 'whitesmoke', }} label={<Box display="flex" alignItems="center"><Circle color='success' sx={{ fontSize: 15, mr: 0.5 }} />{address.slice(0, 6) + '...' + address.slice(36)}</Box>} />
                             </IconButton>
-                        </Tooltip>
+                        </Tooltip>}
                         <Menu
                             sx={{ mt: '45px' }}
                             id="menu-appbar"
