@@ -10,7 +10,6 @@ import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import LandingImage from "../../assets/images/landing.svg"
 import MetamaskLogo from "../../assets/images/metamask.svg";
 import Snackbar from '@mui/material/Snackbar';
-import Stack from '@mui/material/Stack';
 import { authenticate } from '../../services/auth.service';
 import { useNavigate } from 'react-router-dom';
 

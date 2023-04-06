@@ -16,9 +16,9 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import Web3 from 'web3';
 import NoteAdd from "@mui/icons-material/NoteAdd";
 import NoNotes from "../../assets/images/no_notes.svg"
-import { addLocalSecretKey, addNoteToRemoteDB, addNotetoLocalDB, deleteNoteFromLocalDB, deleteNotefromRemoteDB, getLocalSecretKey, getNotesFromLocalDB, getNotesFromRemoteDB, switchStorage, updateNoteInLocalDB, updateNoteInRemoteDB } from '../../services/note.service';
 import crypto from "crypto";
 import Crypto from '../../services/crypto.service';
+import { IndexedDB, MongoDB, switchStorage, getPassphrase, addPassphrase } from '../../services/note.service';
 
 
 const NoteListItem = ({ title, lastModified }) => (
@@ -51,9 +51,9 @@ const Home = () => {
             try {
                 let notes = [];
                 if (storage === 'local')
-                    notes = await getNotesFromLocalDB();
+                    notes = await IndexedDB.getNotes()
                 else if (storage === 'remote')
-                    notes = await getNotesFromRemoteDB();
+                    notes = await MongoDB.getNotes();
                 if (notes.length) {
                     const key = await getKey();
                     const decryptedNotes = await Promise.all(notes.map(async (x) => {
@@ -73,12 +73,12 @@ const Home = () => {
         let web3 = new Web3(window.ethereum);
         const coinbase = await web3.eth.getCoinbase();
         if (!coinbase) {
-            const id = await getLocalSecretKey();
+            const id = await getPassphrase();
             if (id.length)
                 return id[0];
             else {
                 const key = crypto.randomBytes(20).toString('hex');
-                await addLocalSecretKey(key);
+                await addPassphrase(key);
                 return key;
             }
         }
@@ -100,7 +100,7 @@ const Home = () => {
         const encryptedNote = await Crypto.encrypt(key, JSON.stringify(note));
         if (storage === 'local') {
             try {
-                const id = await addNotetoLocalDB(encryptedNote);
+                const id = await IndexedDB.addNote(encryptedNote);
                 setNotes(prevNotes => [...prevNotes, { _id: id, ...note }])
                 setIndex(notes.length);
                 setMode(1);
@@ -108,7 +108,7 @@ const Home = () => {
                 alert(`Failed to add note: ${error}`);
             }
         } else if (storage === 'remote') {
-            const response = await addNoteToRemoteDB(encryptedNote);
+            const response = await MongoDB.addNote(encryptedNote);
             if (response.status === 201) {
                 setNotes(prevNotes => [...prevNotes, { _id: response.data._id, ...note }])
                 setIndex(notes.length);
@@ -127,14 +127,14 @@ const Home = () => {
         const updatedNote = { _id: notes[index]._id, note: encryptedNote }
         if (storage === 'local') {
             try {
-                await updateNoteInLocalDB(updatedNote);
+                await IndexedDB.updateNote(updatedNote);
                 setNotes([...notes.slice(0, index), note, ...notes.slice(index + 1)])
             } catch {
                 alert("Error updating note");
             }
 
         } else if (storage === 'remote') {
-            const response = await updateNoteInRemoteDB(updatedNote);
+            const response = await MongoDB.updateNote(updatedNote);
             if (response.status === 204) {
                 setNotes([...notes.slice(0, index), note, ...notes.slice(index + 1)])
             } else if (response.status === 401) {
@@ -149,14 +149,14 @@ const Home = () => {
         const id = notes[index]._id;
         if (storage === 'local') {
             try {
-                await deleteNoteFromLocalDB(id);
+                await IndexedDB.deleteNote(id);
                 setNotes(notes => notes.filter((x, i) => i !== index));
                 setIndex(Math.max(index - 1, 0));
             } catch {
                 alert("Error deleting note");
             }
         } else if (storage === 'remote') {
-            const status = await deleteNotefromRemoteDB(id);
+            const status = await MongoDB.deleteNote(id);
             if (status === 204) {
                 setNotes(notes => notes.filter((x, i) => i !== index));
                 setIndex(Math.max(index - 1, 0));

@@ -4,14 +4,25 @@ import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import Typography from "@mui/material/Typography";
 
+/**
+ * Component for the footer of the application
+ * @returns 
+ */
 const Footer = () => {
     const [open, setOpen] = React.useState(false);
 
+    /**
+     * This function opens the cookie consent modal
+     */
     const handleOpen = () => {
         setOpen(true);
     }
 
+    /**
+     * This function closes the cookie consent modal 
+     */
     const handleClose = () => {
+        // Set a variable in local storage after the first time the cookie consent modal is shown to the user, to prevent it from popping up on every load 
         localStorage.setItem('cookie-consent', 'true');
         setOpen(false);
     }

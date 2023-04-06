@@ -25,7 +25,7 @@ function ResponsiveAppBar() {
     const location = useLocation();
     const navigate = useNavigate();
     const [searchParams, setSearchParams] = useSearchParams();
-    const authenticated = location.pathname == "/home" && searchParams.get('mode') !== "guest"
+    const authenticated = location.pathname === "/home" && searchParams.get('mode') !== "guest"
     const pages = authenticated ? ['Home'] : [''];
     const [address, setAddress] = React.useState("");
     const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -200,7 +200,7 @@ function ResponsiveAppBar() {
                         variant="contained"
                         sx={{ my: 2, color: "primary.main", backgroundColor: "#eee", fontWeight: "bold" }}
                     >
-                        <img src={MetamaskLogo} height={20} />
+                        <img src={MetamaskLogo} alt="Metamask logo" height={20} />
                         Login with Metamask
                     </Button>}
                 </Toolbar>

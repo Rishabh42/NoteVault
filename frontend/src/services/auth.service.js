@@ -1,8 +1,17 @@
+/* --------------------------------------------------------------------
+This file contains all code related to authentication with Metamask
+Adapted code. Check ACKNOWLEDGEMENTS.md for attribution
+----------------------------------------------------------------------- */
 import Web3 from 'web3';
 import axios from "../axios";
 
 let web3 = undefined;
 
+/**
+ * This function sends the signature along with the public Metamask address of the user to the backend for verification
+ * @param {{publicAddress: string, signature: number}} param0 object containing public Metamask address of user and randomly generated nonce
+ * @returns 
+ */
 const handleAuthenticate = ({
     publicAddress,
     signature,
@@ -13,6 +22,11 @@ const handleAuthenticate = ({
         },
     }).then((response) => response);
 
+/**
+ * This function pops up the Metamask confirmation modal to sign the nonce with the public Metamask address of user
+ * @param {{publicAddress: string, nonce: number}} param0 object containing public Metamask address of user and randomly generated nonce
+ * @returns 
+ */
 const handleSignMessage = async ({
     publicAddress,
     nonce,
@@ -32,6 +46,11 @@ const handleSignMessage = async ({
     }
 };
 
+/**
+ * This function creates a user with the given public Metamask address in the database
+ * @param {string} publicAddress public Metamask address of user
+ * @returns 
+ */
 const handleSignup = (publicAddress) =>
     axios.post('/users', { publicAddress }, {
         headers: {
@@ -39,6 +58,12 @@ const handleSignup = (publicAddress) =>
         },
     }).then((response) => response);
 
+
+
+/**
+ * Main authentication function that verifies the identity of an existing user or creates a new user if no account is found.
+ * @returns 
+ */
 export const authenticate = async () => {
     // Check if MetaMask is installed
     if (!window.ethereum) {

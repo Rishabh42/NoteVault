@@ -1,3 +1,8 @@
+/* --------------------------------------------------------------------
+This file contains all functions related to encryption and decryption of the notes
+Adapted code. Check ACKNOWLEDGEMENTS.md for attribution
+----------------------------------------------------------------------- */
+
 export default class Crypto {
     // iterations: It must be a number and should be set as high as possible.
     // So, the more is the number of iterations, the more secure the derived key will be,
