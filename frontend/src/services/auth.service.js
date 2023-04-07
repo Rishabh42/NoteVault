@@ -8,8 +8,8 @@ import axios from "../axios";
 let web3 = undefined;
 
 /**
- * This function sends the signature along with the public Metamask address of the user to the backend for verification
- * @param {{publicAddress: string, signature: number}} param0 object containing public Metamask address of user and randomly generated nonce
+ * This function sends the signature along with the Metamask account public address of the user to the backend for verification
+ * @param {{publicAddress: string, signature: number}} param0 object containing Metamask account public address of user and randomly generated nonce
  * @returns 
  */
 const handleAuthenticate = ({
@@ -23,8 +23,8 @@ const handleAuthenticate = ({
     }).then((response) => response);
 
 /**
- * This function pops up the Metamask confirmation modal to sign the nonce with the public Metamask address of user
- * @param {{publicAddress: string, nonce: number}} param0 object containing public Metamask address of user and randomly generated nonce
+ * This function pops up the Metamask confirmation modal to sign the nonce with the Metamask account public address of user
+ * @param {{publicAddress: string, nonce: number}} param0 object containing Metamask account public address of user and randomly generated nonce
  * @returns 
  */
 const handleSignMessage = async ({
@@ -47,8 +47,8 @@ const handleSignMessage = async ({
 };
 
 /**
- * This function creates a user with the given public Metamask address in the database
- * @param {string} publicAddress public Metamask address of user
+ * This function creates a user with the given Metamask account public address in the database
+ * @param {string} publicAddress Metamask account public address of user
  * @returns 
  */
 const handleSignup = (publicAddress) =>

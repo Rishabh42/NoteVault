@@ -18,6 +18,9 @@ const CreateNote = ({
     const [title, setTitle] = React.useState("");
     const [body, setBody] = React.useState("");
 
+    /**
+     * Function save the note
+     */
     const handleSave = () => {
         addNote(title, body);
     }
