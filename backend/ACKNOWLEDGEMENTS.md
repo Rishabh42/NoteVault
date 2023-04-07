@@ -1,10 +1,7 @@
 # Acknowledgements
 
 Portions of this app include software from the following repositories under the following terms:
-- [auth.service.js](src/services/auth.service.js) adapted from [amaurym/login-with-metamask-demo](https://github.com/amaurym/login-with-metamask-demo)
-
-- [crypto.service.js](src/services/crypto.service.js) adapted from [santoshshinde2012/Crypto.md](https://gist.github.com/santoshshinde2012/1913bcb3d92b35b042ddcf28e0543413)
-
+- [routes/auth/index.js](routes/auth/index.js) adapted from [amaurym/login-with-metamask-demo](https://github.com/amaurym/login-with-metamask-demo)
 
 ----
 

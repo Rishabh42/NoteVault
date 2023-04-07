@@ -9,6 +9,7 @@ const userSchema = new Schema({
     nonce: {
         type: Number,
         required: true,
+        // Generate random nonce
         default: () => Math.floor(Math.random() * 1000000)
     }
 })

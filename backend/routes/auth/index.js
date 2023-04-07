@@ -1,3 +1,8 @@
+/* --------------------------------------------------------------------
+This file contains all routes related to authentication with Metamask
+Adapted code. Check ACKNOWLEDGEMENTS.md for attribution
+----------------------------------------------------------------------- */
+
 import express from "express";
 import { recoverPersonalSignature } from 'eth-sig-util';
 import { bufferToHex } from 'ethereumjs-util';
@@ -6,6 +11,13 @@ import { User } from "../../models/user.model.js";
 
 export const authRouter = express.Router();
 
+/**
+ * POST /api/auth
+ * @summary This endpoint verifies the digital signature of the nonce with the Metamask public address of the user and returns a JWT
+ * @param {object} request.body.required - {signature, publicAddress}
+ * @return {object} 200 - Sucess. JWT stored in HTTP-only cookie and sent to client
+ * @return {object} xxx - Error. Error is passed to next handler
+ */
 authRouter.post('/', async (req, res, next) => {
     const { signature, publicAddress } = req.body;
     if (!signature || !publicAddress)
@@ -111,6 +123,12 @@ authRouter.post('/', async (req, res, next) => {
     );
 })
 
+/**
+ * GET /api/auth/logout
+ * @summary This endpoint removes the JWT cookie and ends the user session
+ * @return {object} 202 - Accepted. Sends message to client indicating log out successful
+ * @return {object} 500 - Internal Server Error. 
+ */
 authRouter.get('/logout', (req, res) => {
     try {
         res.status(202).clearCookie('jwt').json({ message: 'Logged out successfully' })
