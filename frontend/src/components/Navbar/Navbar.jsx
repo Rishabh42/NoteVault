@@ -19,13 +19,15 @@ import { authenticate } from '../../services/auth.service';
 import MetamaskLogo from "../../assets/images/metamask.svg"
 import Web3 from 'web3';
 
-
-
+/**
+ * Component for the navbar
+ * @returns 
+ */
 function ResponsiveAppBar() {
     const location = useLocation();
     const navigate = useNavigate();
     const [searchParams, setSearchParams] = useSearchParams();
-    const authenticated = location.pathname == "/home" && searchParams.get('mode') !== "guest"
+    const authenticated = location.pathname === "/home" && searchParams.get('mode') !== "guest"
     const pages = authenticated ? ['Home'] : [''];
     const [address, setAddress] = React.useState("");
     const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -38,12 +40,17 @@ function ResponsiveAppBar() {
         })()
     }, [])
 
+    /**
+     * This function retrieves the Metamask account public address of the user.
+     * @returns 
+     */
     const getAddress = async () => {
         let web3 = new Web3(window.ethereum);
         const coinbase = await web3.eth.getCoinbase();
         return coinbase;
     };
 
+    // The below functions are used for the responsiveness of the navbar
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };
@@ -59,6 +66,9 @@ function ResponsiveAppBar() {
         setAnchorElUser(null);
     };
 
+    /**
+    * The function is used to trigger the Metamask login process. Called when user clicks on Sign in with MetaMask button.
+    */
     const handleLogin = () => {
         authenticate()
             .then(() => navigate('/home'))
@@ -67,6 +77,9 @@ function ResponsiveAppBar() {
             });
     }
 
+    /**
+     * This function closes the user session
+     */
     const handleLogout = async () => {
         try {
             const response = await axios.get('/auth/logout');
@@ -200,7 +213,7 @@ function ResponsiveAppBar() {
                         variant="contained"
                         sx={{ my: 2, color: "primary.main", backgroundColor: "#eee", fontWeight: "bold" }}
                     >
-                        <img src={MetamaskLogo} height={20} />
+                        <img src={MetamaskLogo} alt="Metamask logo" height={20} />
                         Login with Metamask
                     </Button>}
                 </Toolbar>

@@ -1,6 +1,11 @@
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import PrivacyPolicyImage from "../../assets/images/privacy_policy.svg"
+
+/**
+ * Component that displays the privacy policy of our application
+ * @returns 
+ */
 const PrivacyPolicy = () => {
     return (
         <Container sx={{ mt: 3 }}>

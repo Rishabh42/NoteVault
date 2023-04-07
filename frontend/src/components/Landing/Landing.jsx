@@ -2,6 +2,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Unstable_Grid2';
+import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import SecurityIcon from '@mui/icons-material/Security';
 import StorageIcon from '@mui/icons-material/Storage';
@@ -9,22 +10,29 @@ import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import LandingImage from "../../assets/images/landing.svg"
 import MetamaskLogo from "../../assets/images/metamask.svg";
 import Snackbar from '@mui/material/Snackbar';
-import Stack from '@mui/material/Stack';
 import { authenticate } from '../../services/auth.service';
 import { useNavigate } from 'react-router-dom';
 
+/**
+ * Component for the landing page
+ * @returns 
+ */
 const Landing = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = React.useState(false);
     const [open, setOpen] = React.useState(false);
 
     React.useEffect(() => {
+        // Check if cookie consent variable is defined in local storage. If not, display the cookie consent modal
         const cookieConsent = localStorage.getItem('cookie-consent');
         if (!cookieConsent || cookieConsent === "false") {
             setOpen(true);
         }
     }, []);
 
+    /**
+     * The function is used to trigger the Metamask login process. Called when user clicks on Sign in with MetaMask button.
+     */
     const handleLogin = () => {
         setLoading(true);
         authenticate()
@@ -35,6 +43,9 @@ const Landing = () => {
             });
     };
 
+    /**
+     * This function closes the cookie consent modal after setting a variable in local storage to indicate the cookie policy was displayed to the user.
+     */
     const handleClose = () => {
         localStorage.setItem('cookie-consent', 'true');
         setOpen(false);

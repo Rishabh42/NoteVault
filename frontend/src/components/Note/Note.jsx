@@ -1,14 +1,22 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Grid from '@mui/material/Unstable_Grid2';
 import InputBase from '@mui/material/InputBase';
 import Stack from '@mui/material/Stack';
 import Save from '@mui/icons-material/Save';
 import Delete from '@mui/icons-material/Delete';
 
-
-const Note = ({ initTitle, initBody, updateNote, deleteNote }) => {
+/**
+ * Component to display a note
+ * @param {Object} param0 
+ * @returns 
+ */
+const Note = ({
+    initTitle, // Initial title of the note 
+    initBody, // Initial body of the note
+    updateNote, // Function to update note
+    deleteNote // Function to delete note
+}) => {
     const [title, setTitle] = React.useState("");
     const [body, setBody] = React.useState("");
 

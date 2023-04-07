@@ -1,17 +1,26 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Grid from '@mui/material/Unstable_Grid2';
 import InputBase from '@mui/material/InputBase';
 import Stack from '@mui/material/Stack';
 import Save from '@mui/icons-material/Save';
 import Delete from '@mui/icons-material/DeleteSweep';
 
-
-const CreateNote = ({ addNote, discardNote }) => {
+/**
+ * A component for creating a new note that takes in the title and body of the note 
+ * @param {Object} param0 
+ * @returns 
+ */
+const CreateNote = ({
+    addNote, // Function to save the note in the respective database and update the state of the notes in the `Home` component
+    discardNote // Function to discard the note 
+}) => {
     const [title, setTitle] = React.useState("");
     const [body, setBody] = React.useState("");
 
+    /**
+     * Function save the note
+     */
     const handleSave = () => {
         addNote(title, body);
     }
