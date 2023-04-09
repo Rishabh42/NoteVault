@@ -6,13 +6,13 @@
 
 ### Internal
 
-**Management:** These are the people who identified the need of such an app and outlined rough requirements that need to be satisfied for successful execution. This role was played by us.
+**Management:** These are the people who identified the need of such an app and outlined rough requirements that need to be satisfied for successful execution: This role was played by us.
 
-**Developers:** These are the people who will create the app and design the front end as well. They will be responsible for aligning the product with the requirements. This role was played by us. 
+**Developers:** These are the people who will create the app and design the front end as well. They will be responsible for aligning the product with the requirements: This role was played by us. 
 
-**Course supervisor:** They will be responsible for making sure that the app works as intended. They are involved in the evaluation of the product based on privacy standards.
+**Course supervisor:** They will be responsible for making sure that the app works as intended. They are involved in the evaluation of the product based on privacy standards: Prof. Martin Robillard \& Jazlyn Hellman (TA)
 
-**Maintainers:** Once it is open sourced, they will be the ones to make changes to the repository as required for continued success of the app.
+**Maintainers:** Once it is open sourced, they will be the ones to make changes to the repository as required for continued success of the app: This will be done by us and the open source community following a pull request \& review mechanism.
 
 
 ### External
