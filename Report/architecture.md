@@ -1,7 +1,7 @@
 # **Architecture**
 
 
-## Stakeholders:
+## Stakeholders [^SSA]:
 
 
 ### Internal
@@ -15,7 +15,7 @@
 **Maintainers:** Once it is open sourced, they will be the ones to make changes to the repository as required for continued success of the app: This will be done by us and the open source community following a pull request \& review mechanism.
 
 
-### External
+### External [^TW]
 
 
 #### Primary
@@ -29,8 +29,8 @@
 
 **Regulatory bodies:** These are the individuals who have designed certain privacy practices and standards to which the app should conform for it to be widely compliant.
 
-
-
+[^SSA]: Rozanski, N., & Woods, E. (2012). Software systems architecture : working with stakeholders using viewpoints and perspectives (2nd ed.). Addison-Wesley. Retrieved April 9, 2023, from INSERT-MISSING-URL.
+[^TW]: Project stakeholders - who are they &amp; why are they important? (no date) Project Stakeholders - Who Are They &amp; Why Are They Important? Available at: https://www.teamwork.com/project-management-guide/project-stakeholders/ (Accessed: April 9, 2023). 
 
 
 ## Architectural Design Decisions:
@@ -48,32 +48,44 @@ Frontend - responsible for displaying the notes in a user friendly manner.
 
 #### Authentication and login
 
-This is needed to establish the authenticity of the user so that only those notes are displayed which belong to the user. We do not want to use username and password as the login mechanism because the intention is not to collect no PII so that the system is never in a position to identify users at all.  \
-**Implemented** using MetaMask.
+This is needed to establish the authenticity of the user so that only those notes are displayed which belong to the user. We do not want to use username and password as the login mechanism because the intention is not to collect no PII so that the system is never in a position to identify users at all. [^AL]  
+**Implemented** using MetaMask. [^MM]
 
+[^AL]:(2020) Understanding application authentication and authorization security. Available at: https://www.ibm.com/support/pages/understanding-application-authentication-and-authorization-security (Accessed: March 18, 2023). 
+[^MM]:Dawson, J.E. (2021) Build a WEB3 DAPP in React &amp; Login with MetaMask, DEV Community. DEV Community. Available at: https://dev.to/jacobedawson/build-a-web3-dapp-in-react-login-with-metamask-4chp (Accessed: March 9, 2023). 
 
 #### Notes Management
 
-This component covers creation, modification and deletion of the notes. It involves UI aspects as well. But mainly we refer to what is happening under the hood when we talk about notes management. For instance, how data is transferred when storage mode is toggled. 
+This component covers the full end-to-end implementation of various functionalities for the notes like creation, modification and deletion. It involves the UI aspects as well. But mainly we refer to what is happening under the hood when we talk about notes management. For instance, how data is transferred when storage mode is toggled. 
 
-Backend **implemented** using nodejs.
+To fulfill these requirements in the most efficient way, we implemented our backend in NodeJs as it is a very robust framework. [^NJ]
 
+[^NJ]:Arif, H. (2021) Build a simple notes app with Node.js and Mongoose, Medium. Better Programming. Available at: https://betterprogramming.pub/simple-notes-app-with-node-js-and-mongoosejs-6595cd5d15b (Accessed: February 21, 2023). 
 
 #### Storage
 
-This component deals with where we are storing our notes. Based on the mode selected, the location used for storage will change.
+This component deals with where we are storing our notes.  
+Our app offers the following 2 modes of storage of the notes and based on the user's preference, the notes are stored in the respective locations, providing full access to the user:
 
-If **server side** mode: MongoDB
+If **server side** mode: MongoDB Atlas[^MA]
 
-If **local** mode: indexedDB
+If **local** mode: IndexedDB [^IDB]
 
+[^MA]:MongoDB Atlas documentation. Available at: https://www.mongodb.com/docs/atlas/
+[^IDB]: Working with indexeddb (no date) web.dev. Available at: https://web.dev/indexeddb/#:~:text=IndexedDB%20is%20a%20low%2Dlevel,larger%20amounts%20of%20structured%20data. (Accessed: March 2, 2023). 
 
 #### Encryption
 
-This component covers the encryption aspects. It includes synthesis of the private key for encryption from the public address of metamask and encrypting the data on client side after notes are saved. The intention is to make sure that no unencrypted data leaves the client's machine.
+This component covers the encryption aspects. It includes synthesis of the private key for encryption from the public MetaMask address of the user and encrypting the data on the client's side before the notes are saved in the user's preferred database. The intention is to make sure that no unencrypted data leaves the client's machine.
 
-**Implemented** using AES-GCM 256 bit
+After researching on various cryptographic schemes we narrowed down to 2 cryptographic schemes which were relevant to our need of encrypting the notes, these were: XChaCha20-Poly1305[^XCP] & the AES-GCM 256 bit schemes[^AES].  
 
+While developing encryption for our application we realized that the AES-GCM scheme is much more efficient as it allowed us to generate a private key for encryption using the user's address as the input string. This was not possible with XChaCha20-Poly1305 as it only allowed generation of keys using 32-bit strings and the user's public address is a 20-byte string.  
+
+Hence we implemented encryption using **AES-GCM 256 bit**
+
+[^AES]: AES256-GCM AES256-GCM - Libsodium documentation. Available at: https://libsodium.gitbook.io/doc/secret-key_cryptography/aead/aes-256-gcm. 
+[^XCP]: XCHACHA20-Poly1305 Construction XChaCha20-Poly1305 construction - Libsodium documentation. Available at: https://libsodium.gitbook.io/doc/secret-key_cryptography/aead/chacha20-poly1305/xchacha20-poly1305_construction . 
 
 ### Modes of communication
 
@@ -280,3 +292,5 @@ _Source: self drawn using lucidchart_
 
 
 _Source: self drawn using lucidchart_
+
+## References
