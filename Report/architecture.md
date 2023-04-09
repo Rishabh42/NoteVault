@@ -135,9 +135,9 @@ Now, if existing notes are modified, based on where they have been stored we wil
         _No trackers:_ Our app does not track user activities on the web page.
 
 [^PRV]:Web applications security and privacy | request PDF - researchgate. Available at: https://www.researchgate.net/publication/332463677_Web_applications_Security_and_Privacy. 
-## **Architectural Models:**
+## **Architectural Models:**[^UML]
 
-
+[^UML]: 24, wildaJ. et al. (2020) All you need to know about UML diagrams: Types and 5+ examples, Tallyfy. Available at: https://tallyfy.com/uml-diagram/#:~:text=A%20UML%20diagram%20is%20a,document%20information%20about%20the%20system. 
 ### Key aspects for Security:
 
 
