@@ -1,11 +1,13 @@
-import './App.css';
+import * as React from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from './components/Home/Home';
-import Login from './components/Login/Login';
 import Landing from './components/Landing/Landing';
 import Navbar from './components/Navbar/Navbar';
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Footer from './components/Footer/Footer';
+import PrivacyPolicy from './components/PrivacyPolicy/PrivacyPolicy';
 
+// Set default theme options for the project
 const theme = createTheme({
   palette: {
     primary: {
@@ -13,6 +15,9 @@ const theme = createTheme({
       light: "#8364D0",
       dark: "#37306B",
     },
+    secondary: {
+      main: "#D27685"
+    }
   },
   typography: {
     fontFamily: [
@@ -32,8 +37,10 @@ function App() {
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         </Routes>
       </Router>
+      <Footer />
     </ThemeProvider>
   );
 }

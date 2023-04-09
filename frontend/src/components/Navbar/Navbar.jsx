@@ -7,23 +7,50 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
+import Chip from '@mui/material/Chip';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import Note from '@mui/icons-material/NotesTwoTone';
-import { useLocation, useNavigate } from 'react-router-dom';
+import Circle from '@mui/icons-material/CircleTwoTone';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import axios from '../../axios';
 import { authenticate } from '../../services/auth.service';
+import MetamaskLogo from "../../assets/images/metamask.svg"
+import Web3 from 'web3';
 
-
+/**
+ * Component for the navbar
+ * @returns 
+ */
 function ResponsiveAppBar() {
     const location = useLocation();
     const navigate = useNavigate();
-    const pages = location.pathname == "/home" ? ['Home'] : ['Log In'];
+    const [searchParams, setSearchParams] = useSearchParams();
+    const authenticated = location.pathname === "/home" && searchParams.get('mode') !== "guest"
+    const pages = authenticated ? ['Home'] : [''];
+    const [address, setAddress] = React.useState("");
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
+    React.useEffect(() => {
+        (async () => {
+            const address = await getAddress();
+            setAddress(address);
+        })()
+    }, [])
+
+    /**
+     * This function retrieves the Metamask account public address of the user.
+     * @returns 
+     */
+    const getAddress = async () => {
+        let web3 = new Web3(window.ethereum);
+        const coinbase = await web3.eth.getCoinbase();
+        return coinbase;
+    };
+
+    // The below functions are used for the responsiveness of the navbar
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };
@@ -39,6 +66,9 @@ function ResponsiveAppBar() {
         setAnchorElUser(null);
     };
 
+    /**
+    * The function is used to trigger the Metamask login process. Called when user clicks on Sign in with MetaMask button.
+    */
     const handleLogin = () => {
         authenticate()
             .then(() => navigate('/home'))
@@ -47,6 +77,9 @@ function ResponsiveAppBar() {
             });
     }
 
+    /**
+     * This function closes the user session
+     */
     const handleLogout = async () => {
         try {
             const response = await axios.get('/auth/logout');
@@ -78,7 +111,7 @@ function ResponsiveAppBar() {
                             textDecoration: 'none',
                         }}
                     >
-                        InkedIn
+                        NoteVault
                     </Typography>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -134,7 +167,7 @@ function ResponsiveAppBar() {
                             textDecoration: 'none',
                         }}
                     >
-                        InkedIn
+                        NoteVault
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {pages.map((page) => (
@@ -148,12 +181,12 @@ function ResponsiveAppBar() {
                         ))}
                     </Box>
 
-                    {location.pathname == "/home" && <Box sx={{ flexGrow: 0 }}>
-                        <Tooltip title="Open settings">
+                    {authenticated ? <Box sx={{ flexGrow: 0 }}>
+                        {address && <Tooltip title="Your account">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                                <Chip sx={{ boxShadow: 3, color: 'whitesmoke', }} label={<Box display="flex" alignItems="center"><Circle color='success' sx={{ fontSize: 15, mr: 0.5 }} />{address.slice(0, 6) + '...' + address.slice(36)}</Box>} />
                             </IconButton>
-                        </Tooltip>
+                        </Tooltip>}
                         <Menu
                             sx={{ mt: '45px' }}
                             id="menu-appbar"
@@ -174,7 +207,15 @@ function ResponsiveAppBar() {
                                 <Typography textAlign="center" component="a" onClick={handleLogout}>Log Out</Typography>
                             </MenuItem>
                         </Menu>
-                    </Box>}
+
+                    </Box> : <Button
+                        onClick={handleLogin}
+                        variant="contained"
+                        sx={{ my: 2, color: "primary.main", backgroundColor: "#eee", fontWeight: "bold" }}
+                    >
+                        <img src={MetamaskLogo} alt="Metamask logo" height={20} />
+                        Login with Metamask
+                    </Button>}
                 </Toolbar>
             </Container>
         </AppBar>
