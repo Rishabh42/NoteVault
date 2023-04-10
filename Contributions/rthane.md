@@ -1,16 +1,16 @@
 _Note: Commits from @rthane (rishabh.thaney@mail.mcgill.ca) & Rishabh Thaney (rthane@gitlab.cs.mcgill.ca) were all added by me._
 
 ## For the project, I was mainly working on the following:
-- Prominent contributions in the ideation, architecture and choosing the tech stack of the app.
+- Full ownership & prominent contributions in the ideation, architecture and choosing the tech stack of the app.
 - Created the first iteration of the app using vanilla JS which was later enhanced by using ReactJS and NodeJs.
 - Researched on private passwordless login, worked on implementing the same using MetaMask
 - Developed Database routes
 - Researched and implemented the encryption schemes to preserve user privacy (XChaCha20-Poly1305 & AES-GCM)
 - Project management using GitLab issues
 - Created the app's end-to-end flow diagram
-- Worked on the `architecture.md`, some conteant of `report.md`, added citations and reviewed them.
+- Worked on the `architecture.md`, explained privacy features & elaborated on encryption `report.md`, added citations and reviewed them.
 - Collaborated with @vshiri and @akapur on the app's implementation(frontend,backend,database,etc), documentation, report, etc
-- Worked together on the presentation and the final report.
+- Worked on explaining the features (both privacy & functional) in the presentation and the final report. Covered the encryption aspects and how it is preserving user privacy in depth.
 
 ## Notable individual commits:
 | Task | Date Completed | Issue | Commit |
@@ -20,7 +20,7 @@ _Note: Commits from @rthane (rishabh.thaney@mail.mcgill.ca) & Rishabh Thaney (rt
 | Vanilla JS implementation of app | March 23, 2023 | #3 | c44afd753be462686a9b1e12fe976e60f4e32f8d |
 | Libsodium library for encryption | March 23, 2023 | #10 | 8a6fd3b63d254fdbd1b8d351c8db506602d7c1df |
 | Added database routes | March 30, 2023 | #12 | 2b3ac7a0b8aa824ac193ddab5dcfa44fdabe2491 |
-| Segregated backend code | March 30, 2023 | #14 | 1e5ee22d1b22c3ada784c75f5eb96e1af07511e1 |
+| Enhanced backend code | March 30, 2023 | #14 | 1e5ee22d1b22c3ada784c75f5eb96e1af07511e1 |
 | Segregated frontend code | March 30, 2023 | #14 | 1fea947192326239c8451cf8d9786ae56065ded5 |
 | Added encryption files using XChaCha20-Poly1305 | April 1, 2023 | #10 | 11553473f263ad0267a0c747b67f89d54671104c |
 | Integrating XChaCha20 encryption in app | April 1, 2023 | #10 | efaeff9ae629e6b6909329f5305ac5ac4e121811 |
