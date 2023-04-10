@@ -29,16 +29,16 @@ _Note: Commits from @rthane (rishabh.thaney@mail.mcgill.ca) & Rishabh Thaney (rt
 Other development commits authored by me can be found in the repo's history/contributions.
 
 ## Issues worked on/opened:
-1. https://gitlab.cs.mcgill.ca/akapur12/group-2-project-comp555/-/issues/15
-2. https://gitlab.cs.mcgill.ca/akapur12/group-2-project-comp555/-/issues/8
-3. https://gitlab.cs.mcgill.ca/akapur12/group-2-project-comp555/-/issues/9
-4. https://gitlab.cs.mcgill.ca/akapur12/group-2-project-comp555/-/issues/10
-5. https://gitlab.cs.mcgill.ca/akapur12/group-2-project-comp555/-/issues/5
-6. https://gitlab.cs.mcgill.ca/akapur12/group-2-project-comp555/-/issues/6
-7. https://gitlab.cs.mcgill.ca/akapur12/group-2-project-comp555/-/issues/7
-8. https://gitlab.cs.mcgill.ca/akapur12/group-2-project-comp555/-/issues/13
-9. https://gitlab.cs.mcgill.ca/akapur12/group-2-project-comp555/-/issues/12
-10. https://gitlab.cs.mcgill.ca/akapur12/group-2-project-comp555/-/issues/14
-11. https://gitlab.cs.mcgill.ca/akapur12/group-2-project-comp555/-/issues/17
-12. https://gitlab.cs.mcgill.ca/akapur12/group-2-project-comp555/-/issues/20
+1. Figure out a way for client side storage of encryption keys: https://gitlab.cs.mcgill.ca/akapur12/group-2-project-comp555/-/issues/15
+2. Setup CI/CD pipeline for the project: https://gitlab.cs.mcgill.ca/akapur12/group-2-project-comp555/-/issues/8
+3. Migrate the frontend to ReactJs: https://gitlab.cs.mcgill.ca/akapur12/group-2-project-comp555/-/issues/9
+4. Cryptographically encrypt the note saved: https://gitlab.cs.mcgill.ca/akapur12/group-2-project-comp555/-/issues/10
+5. Look into Metamask login: https://gitlab.cs.mcgill.ca/akapur12/group-2-project-comp555/-/issues/5
+6. Complete the requirements.md file: https://gitlab.cs.mcgill.ca/akapur12/group-2-project-comp555/-/issues/6
+7. Design the architecture: https://gitlab.cs.mcgill.ca/akapur12/group-2-project-comp555/-/issues/7
+8. Create a privacy policy for the app: https://gitlab.cs.mcgill.ca/akapur12/group-2-project-comp555/-/issues/13
+9. Write routes to saves notes to MongoDB: https://gitlab.cs.mcgill.ca/akapur12/group-2-project-comp555/-/issues/12
+10. Rename and structure the folders: https://gitlab.cs.mcgill.ca/akapur12/group-2-project-comp555/-/issues/14
+11. Create architectural models and scenarios for the app. (including sequence, structural diags): https://gitlab.cs.mcgill.ca/akapur12/group-2-project-comp555/-/issues/17
+12. create the presentation: https://gitlab.cs.mcgill.ca/akapur12/group-2-project-comp555/-/issues/20
 
