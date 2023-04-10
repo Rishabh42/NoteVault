@@ -1,3 +1,5 @@
+Aayush Kapur: @akapur12
+
 In this section, I will describe my contribution to the project. Post the description, you will find a summary of the issues resolved and commits created for the same along with a brief note on the task done.
 
 **Work done:**
