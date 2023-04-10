@@ -7,8 +7,8 @@ In this section, I will describe my contribution to the project. Post the descri
 
 
 1. Near the start of the project, I dealt with the logistics and organization. Then I looked into different ideas we could explore and build. There was much deliberation and involved a discussion with the professor as well. Subsequently, I assisted in drawing up the plans and choosing the tech stack for the project.
-2. I created the first iteration of the note taking app upon which further changes were added and features built. Then I worked on making changes to the frontend including navBar, logout and other UI based needs. I assisted Rishabh in building the encryption functionality. We discussed different architectures which could be applicable here. 
-3. I created all the components of the requirements document. There was a prominent contribution for the architecture as well including sequence diagrams, use case diagrams and component diagrams. Lastly, I worked with Varun on the final report. I was involved in creating the presentation and Varun helped me to create a convincing finished product.
+2. I created one of the first react iterations of the note taking app upon which further changes were added and features built. Then I worked on making changes to the frontend including navBar, logout and other UI based needs. I assisted Rishabh in building the encryption functionality. We discussed different architectures which could be applicable here. 
+3. I created all the components of the requirements document. There was a prominent contribution for the architecture as well including sequence diagrams, use case diagrams and component diagrams. Lastly, I worked with Varun on the final report where Rishabh also contributed in the reviews. I was involved in creating the presentation and Varun helped me to create a convincing finished product.
 
 **Collaboration:** 
 
