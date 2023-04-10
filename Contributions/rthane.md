@@ -28,7 +28,7 @@ _Note: Commits from @rthane (rishabh.thaney@mail.mcgill.ca) & Rishabh Thaney (rt
 | Client side storage of private keys | April 3, 2023 | #15 | 7ae83da01e5317570549dae57ea2a52c23115153 |
 | Overall architecture and design | April 9, 2023 | #21 | c01d8bf0b566c82fee090b13b08643b53e6d7749 |
 
-Other development commits authored by me can be found in the repo's history/contributions.
+Other development commits authored by me can be found in the repo's history/contributions [here](https://gitlab.cs.mcgill.ca/akapur12/group-2-project-comp555/-/blob/main/Contributions/rthane.md).
 
 ## Issues worked on/opened:
 1. Figure out a way for client side storage of encryption keys: https://gitlab.cs.mcgill.ca/akapur12/group-2-project-comp555/-/issues/15
