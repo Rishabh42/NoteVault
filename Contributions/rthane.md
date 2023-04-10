@@ -11,6 +11,7 @@ _Note: Commits from @rthane (rishabh.thaney@mail.mcgill.ca) & Rishabh Thaney (rt
 - Worked on the `architecture.md`, explained privacy features & elaborated on encryption `report.md`, added citations and reviewed them.
 - Collaborated with @vshiri and @akapur on the app's implementation(frontend,backend,database,etc), documentation, report, etc
 - Worked on explaining the features (both privacy & functional) in the presentation and the final report. Covered the encryption aspects and how it is preserving user privacy in depth.
+- Documentation of project
 
 ## Notable individual commits:
 | Task | Date Completed | Issue | Commit |
