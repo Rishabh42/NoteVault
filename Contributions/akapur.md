@@ -34,7 +34,7 @@ _(our work in project was pretty interdependent on each other and we were buildi
    </td>
   </tr>
   <tr>
-   <td><a href="https://gitlab.cs.mcgill.ca/akapur12/group-2-project-comp555/-/issues/1">Add the project timelines and deliverables.</a>
+   <td>Add the project timelines and deliverables.
    </td>
    <td>Feb 22, 2023
    </td>
@@ -106,11 +106,13 @@ Added policies in the app.
    </td>
   </tr>
   <tr>
-   <td>Make architecture.md
-<p>
-<a href="https://gitlab.cs.mcgill.ca/akapur12/group-2-project-comp555/-/issues/22">Explain the decisions which shaped our implementation for greater privacy in the finished app.</a> Include the scenarios for the app.
-<p>
-Determine stakeholders for the app.
+   <td>Make architecture.md.
+   
+   Explain the decisions which shaped our implementation for greater privacy in the finished app.
+   
+   Include the scenarios for the app.
+   
+   Determine stakeholders for the app.
    </td>
    <td>April 8, 2023
    </td>
@@ -121,9 +123,9 @@ Determine stakeholders for the app.
 <a href="https://gitlab.cs.mcgill.ca/akapur12/group-2-project-comp555/-/issues/7">https://gitlab.cs.mcgill.ca/akapur12/group-2-project-comp555/-/issues/7</a>
    </td>
    <td><a href="https://gitlab.cs.mcgill.ca/akapur12/group-2-project-comp555/-/commit/2739003c97aa57ec011bf3b03e72ca57f8596bdf">https://gitlab.cs.mcgill.ca/akapur12/group-2-project-comp555/-/commit/2739003c97aa57ec011bf3b03e72ca57f8596bdf</a>
-<p>
+
 <a href="https://gitlab.cs.mcgill.ca/akapur12/group-2-project-comp555/-/commit/b9b40bf2e3febc852a5609f10e1fa7e44a7c1b4f">https://gitlab.cs.mcgill.ca/akapur12/group-2-project-comp555/-/commit/b9b40bf2e3febc852a5609f10e1fa7e44a7c1b4f</a>
-<p>
+
 (these were drawn before the presentation but committed in repo while finalizing the report)
    </td>
   </tr>
@@ -152,21 +154,22 @@ Determine stakeholders for the app.
    </td>
   </tr>
   <tr>
-   <td><a href="https://gitlab.cs.mcgill.ca/akapur12/group-2-project-comp555/-/issues/16">Create the comparison with other apps serving similar needs.</a>
-<p>
-Functional and privacy requirements.
+   <td>
+   
+   Create the comparison with other apps serving similar needs.
+   
+   Functional and privacy requirements.
    </td>
    <td>April 02, 2023
    </td>
    <td><a href="https://gitlab.cs.mcgill.ca/akapur12/group-2-project-comp555/-/issues/16">https://gitlab.cs.mcgill.ca/akapur12/group-2-project-comp555/-/issues/16</a>
-<p>
+
 <a href="https://gitlab.cs.mcgill.ca/akapur12/group-2-project-comp555/-/issues/6">https://gitlab.cs.mcgill.ca/akapur12/group-2-project-comp555/-/issues/6</a>
    </td>
    <td>
     <a href="https://gitlab.cs.mcgill.ca/akapur12/group-2-project-comp555/-/commit/14978b2c9ad73c9dae4cb39e7009b6e578a4c5b7">https://gitlab.cs.mcgill.ca/akapur12/group-2-project-comp555/-/commit/14978b2c9ad73c9dae4cb39e7009b6e578a4c5b7</a>
-<p>
-
-    <a href="https://gitlab.cs.mcgill.ca/akapur12/group-2-project-comp555/-/commit/72022d2e1e7c43ae645d5ecb62e023c9df388ca9">https://gitlab.cs.mcgill.ca/akapur12/group-2-project-comp555/-/commit/72022d2e1e7c43ae645d5ecb62e023c9df388ca9</a>
+    
+<a href="https://gitlab.cs.mcgill.ca/akapur12/group-2-project-comp555/-/commit/72022d2e1e7c43ae645d5ecb62e023c9df388ca9">https://gitlab.cs.mcgill.ca/akapur12/group-2-project-comp555/-/commit/72022d2e1e7c43ae645d5ecb62e023c9df388ca9</a>
    </td>
   </tr>
   <tr>
