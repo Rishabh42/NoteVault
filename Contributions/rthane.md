@@ -1,14 +1,16 @@
 _Note: Commits from @rthane (rishabh.thaney@mail.mcgill.ca) & Rishabh Thaney (rthane@gitlab.cs.mcgill.ca) were all added by me._
 
 ## For the project, I was mainly working on the following:
-- In charge of the ideation, architecture and choosing the tech stack of the app.
-- Created the vanilla JS app.
+- Prominent contributions in the ideation, architecture and choosing the tech stack of the app.
+- Created the first iteration of the app using vanilla JS which was later enhanced by using ReactJS and NodeJs.
 - Researched on private passwordless login, worked on implementing the same using MetaMask
 - Developed Database routes
 - Researched and implemented the encryption schemes to preserve user privacy (XChaCha20-Poly1305 & AES-GCM)
 - Project management using GitLab issues
 - Created the app's end-to-end flow diagram
 - Worked on the `architecture.md`, some conteant of `report.md`, added citations and reviewed them.
+- Collaborated with @vshiri and @akapur on the app's implementation(frontend,backend,database,etc), documentation, report, etc
+- Worked together on the presentation and the final report.
 
 ## Notable individual commits:
 | Task | Date Completed | Issue | Commit |
