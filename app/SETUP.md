@@ -14,6 +14,6 @@ The client side or frontend is built using React. Follow the steps below to get 
 # Server set up
 The server or backend code uses Node.js. Follow the steps below to get the server up and running.
 1. In the root directory, `cd backend`
-2. `npm install` // ONly required first time you run the project
+2. `npm install` // Only required first time you run the project
 3. `npm run start`
 
