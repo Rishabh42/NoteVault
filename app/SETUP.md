@@ -3,11 +3,12 @@
 # Prerequisites
 Tho set up this project, you need to have the following dependencies installed:
 - [Node.js](https://nodejs.org/en/download)
+- [MetaMask wallet plugin](https://metamask.io/download/)
 
 # Client set up
 The client side or frontend is built using React. Follow the steps below to get the client up and running.
 1. In the root directory, `cd frontend`
-2. `npm install` // ONly required first time you run the project
+2. `npm install` // Only required first time you run the project
 3. `npm start`
 
 # Server set up
