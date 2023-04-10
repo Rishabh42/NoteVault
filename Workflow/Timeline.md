@@ -1,25 +1,25 @@
 ### Project timeline
 
 ~~Wednesday, March 1: Topic brainstorm and finalise~~
-Tuesday, March 7: TechStack finalise and Architecture
+~~Tuesday, March 7: TechStack finalise and Architecture~~
 
 ### Deadlines
 
 * ~~**Friday 17 Feb 17:00: Teams Formed:**~~
-* **Tuesday 28 Mar (class time): Presentations (3 random teams):** 
-* **Thursday 30 Feb (class time): Presentations (3 random teams):** 
-* **Tuesday 04 Apr (class time): Presentations (3 random teams):** 
-* **Thursday 06 Apr (class time): Presentations (remaining teams):** 
-* **Sunday 09 Apr 23:55: Final submission deadline via repo tagging.**
+* ~~**Tuesday 28 Mar (class time): Presentations (3 random teams):**~~
+* ~~**Thursday 30 Feb (class time): Presentations (3 random teams):**~~
+* ~~**Tuesday 04 Apr (class time): Presentations (3 random teams):**~~
+* ~~**Thursday 06 Apr (class time): Presentations (remaining teams):**~~
+* ~~**Sunday 09 Apr 23:55: Final submission deadline via repo tagging.**~~
 
 
 
 ### Deliverables
 
 * ~~Create a new GitLabs repo for your project and invite the instructor and TA as members.~~ 
-* Use the `README.md` as the landing page to provide an overview and orientation through your repo.
-* Include a `Requirements.md`, `Architecture.md`, `Report.md`, and `Workflow.md` files at the root of the repo.
-* Structure the rest of the repo consistently with the technology you are using.
+* ~~Use the `README.md` as the landing page to provide an overview and orientation through your repo.~~
+* ~~Include a `Requirements.md`, `Architecture.md`, `Report.md`, and `Workflow.md` files at the root of the repo.~~
+* ~~Structure the rest of the repo consistently with the technology you are using.~~
 * To submit your work, simply tag your repo with `v1.0` before the deadline. If you tag it as such and realize you need to make additional modifications _before the deadline_, increase the minor version. We will grade the highest `1.x` version tagged before the deadline.
 * For each member, include _by the deadline_ in a file `contributions/userhandle.md` a _contribution statement_ that explains your role and responsibilities in the team and provides a summary of your main contributions, linked to relevant issues and commits. `userhandle` refers to you GitLabs user name without the initial `@`, e.g., `contributions/martin.md` for Martin Robillard. 
 
