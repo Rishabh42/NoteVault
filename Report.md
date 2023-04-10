@@ -354,4 +354,4 @@ To ensure complete confidentiality of users’ data, we wanted to encrypt the no
 
 [^pbd]: Cavoukian, A. (2009). Privacy by design: The 7 foundational principles. Information and privacy commissioner of Ontario, Canada, 5, 12.
 
-**References** Use appropriate references to support your descriptions and discussion. Cite references using their full bibliographic information, not just the URL of the source.
+### References
