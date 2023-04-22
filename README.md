@@ -5,7 +5,7 @@ NoteVault is a private note taking app that allows you to draft your thoughts an
 This project
 was developed in the context of the course [COMP 555 - Software
 Privacy](https://www.cs.mcgill.ca/~martin/teaching/comp555-winter-2023.html)
-offered by Martin Robillard (@prmr) in the McGill School of Computer Science in
+offered by Martin Robillard [@prmr](https://github.com/prmr) in the McGill School of Computer Science in
 Winter 2023.
 
 ## Table of contents
