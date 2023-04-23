@@ -19,7 +19,6 @@ Below is a summary of the main files and folders in our repository.
 | Requirements document                                                              | [Requirements.md](Requirements.md) |
 | Architecture document                                                              | [Architecture.md](Architecture.md) |
 | Workflow for the project                                                           | [Workflow.md](Workflow.md)         |
-| Individual contributions                                                           | [contributions](contributions/)    |
 | UML diagrams (Architecture, use cases, component and sequence diagrams)            | [diagrams](diagrams/)              |
 | Initial brainstorming documentation, meeting minutes, presentation slides for demo | [miscellaneous](miscellaneous/)    |
 
