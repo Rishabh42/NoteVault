@@ -24,4 +24,4 @@ Below is a summary of the main files and folders in our repository.
 
 #### Note
 
-If you want to try out our application on your device, follow the instructions in [SETUP.md](app/SETUP.md).
+If you want to try out our application on your device, follow the instructions in the app's [README.md](app/README.md).
