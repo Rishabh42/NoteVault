@@ -8,6 +8,11 @@ Privacy](https://www.cs.mcgill.ca/~martin/teaching/comp555-winter-2023.html)
 offered by Martin Robillard [@prmr](https://github.com/prmr) in the McGill School of Computer Science in
 Winter 2023.
 
+> It was a collaboration between:
+> - Aayush Kapur [@kpraays](https://github.com/kpraays)
+> - Rishabh Thaney [@Rishabh42](https://github.com/Rishabh42)
+> - Varun Shiri [@varunks99](https://github.com/varunks99)
+
 ## Table of contents
 
 Below is a summary of the main files and folders in our repository.
